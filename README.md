@@ -1,8 +1,8 @@
 # Skimpy Slate
 
-*This project is in the very early stages of development. It is not ready to use.*
+**This project is in the very early stages of development. It is not ready to use.**
 
-Skimpy will provide basic blog functionality without the use of a database but it is *not* a static site generator.
+Skimpy will provide basic blog functionality without the use of a database but it is **not** a static site generator.
 
 Features will include:
 * Basic routing to posts and pages
