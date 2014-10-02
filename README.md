@@ -12,9 +12,9 @@ Features will include:
 
 ## Set up
 * Clone this repo
-* Clone jtallant/skimpy into the vendor directory. Make sure the dir name is just skimpy.
+* Clone [jtallant/skimpy](https://github.com/jtallant/skimpy) into the vendor directory. Make sure the dir name is just skimpy.
 
-jtallant/skimpy isn't loaded through composer because it's in such early development there is no point in publishing it. It is easier to develop on it without having to commit then composer update.
+[jtallant/skimpy](https://github.com/jtallant/skimpy) isn't loaded through composer because it's in such early development there is no point in publishing it. It is easier to develop on it without having to commit then composer update.
 
 ## TODO
 * Move the archive routing code into skimpy
