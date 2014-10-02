@@ -1,0 +1,6 @@
+.DS_Store
+_dev/
+php_errors.log
+vendor/
+Gemfile.lock
+composer.lock

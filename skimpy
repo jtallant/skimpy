@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+echo 'SKIMPY!!!!'.PHP_EOL;
+
+/*
+# create-post
+	* creates a new array inside of the db/array.php file
+		- title
+		- slug (generated auto from title)
+		- date (defaults to today)
+		- categories (empty by default)
+		- tags (empty by default)
+	* creates a file titled by slug (maybe)
+	One drawback is that you might want to edit the slug manually.
+	Then you will have to rename the file.
+
+# php skimpy publish-posts
+	* goes through your posts array and creates a file for each one of them
+	* the file include variables (or an array of keys) that contain date, categories, etc.
+
+# php skimpy duplicated
+	* scans posts/, pages/, categories, and tags/ for duplicates
+
+*/

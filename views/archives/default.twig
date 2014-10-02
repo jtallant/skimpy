@@ -1,0 +1,28 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+	{% for post in collection %}
+		<article>
+			<header>
+				<h1><a href="#">{{ post.title }}</a></h1>
+				<p>Published: <time pubdate="pubdate">{{ post.date }}</time></p>
+			</header>
+			<div class="excerpt">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div> <!-- .excerpt -->
+			<footer>
+				<span class="categories">
+					Filed Under: <a href="#">Category Name</a>
+				</span> <!-- .categories -->
+				<span class="tags">
+					Tagged With: <a href="#">Tag 1</a>, <a href="#">Tag 2</a>
+				</span> <!-- .tags -->
+			</footer>
+		</article>
+	{% endfor %}
+{% endblock content %}
