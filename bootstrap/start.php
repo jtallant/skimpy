@@ -8,7 +8,7 @@ require __DIR__.'/../config/site.php';
 
 date_default_timezone_set($app['site.timezone']);
 
-require __DIR__.'/../database.php';
+//require __DIR__.'/../database.php';
 
 require __DIR__.'/../routes.php';
 

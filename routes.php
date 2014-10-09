@@ -74,23 +74,50 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
 	throw new NotFoundHttpException;
 });
 
+// Load a piece of content
 $app->get('/{slug}', function($slug) use ($app) {
-
-	$resource = $app['skimpy']->getResource($slug);
-
-	if (false === $resource) {
+	
+	// We find the file that corresponds to this slug
+	// (check pages folder then posts folder)
+	
+	// @TODO: Justin - Make the content directory configurable (not hard-coded)
+	$contentDirectory = realpath(__DIR__ . '/content');
+	
+	// @TODO: Justin - Refactor this logic (to line 109) in its own service class
+	if ( ! is_readable($contentDirectory)) {
+		throw new \RuntimeException("Could not read from the content directory: " . $contentDirectory);
+	}
+	
+	if (file_exists($contentDirectory . '/pages/' . $slug . '.md')) {
+		$file = $contentDirectory . '/pages/' . $slug . '.md';
+		$templateType = 'page';
+	}
+	elseif (file_exists($contentDirectory . '/posts/' . $slug . '.md')) {
+		$file = $contentDirectory . '/posts/' . $slug . '.md';
+		$templateType = 'post';
+	}
+	else {
+		// If the content does not exist, we abort with a 404
+		//$app->abort(404);
 		throw new NotFoundHttpException;
 	}
+	$rawFileContents = file_get_contents($file);
+	list($yamlData, $contentData) = explode('----------', $rawFileContents, 2);
 
-    return $app['twig']->render(
-    	$resource->getTemplate(),
-    	[
-	        'seotitle' => $resource->getSeoTitle(),
-	        'title' => $resource->getTitle(),
-	        'date' => $resource->getDate()
-	    ]
-    );
+	// We load the contents of that into a twig template
+	// and render it 
+	$metadata = Yaml::parse($yamlData);
+
+	// Twig Render 
+	// @TODO: Justin - Setup your templates and use the template_from_string() in Twig to allow the content to
+	// include twig syntax
+	return $app['twig']->render($templateType . '.twig', [
+		'metadata' => $metadata,    // array
+		'content'  => $contentData  // string
+	]);
 });
+
+// -------------------------------
 
 $app->error(function(NotFoundHttpException $e, $code) use ($app) {
 	return new Response(
