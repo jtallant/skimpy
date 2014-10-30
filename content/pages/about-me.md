@@ -1,9 +1,7 @@
-title:      Hello World
+title:      About Me
 date:       2015-05-16
 seotitle:   Hello World
-categories: Example Category
-tags:       Tag1, Tag2 # can use array or string
-layout:     master
+template:   master # This is the default but it can be overriden
 
 ---------------------------------------------------------
 

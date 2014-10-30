@@ -4,37 +4,43 @@
 <!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html> <!--<![endif]-->
     <head>
-    	{% block head %}
-	        <meta charset="utf-8">
-	        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	        <title>{{ seotitle }} - {{ app['site.tagline'] }}</title>
-	        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	        <meta name="description" content="{{ app['site.meta_content'] }}">
-	        <meta name="author" content="{{ app['site.author'] }}">
-	        <link rel="stylesheet" href="/assets/css/styles.css">
-	        <!--[if lt IE 9]><script src="/assets/vendor/html5shiv/dist/html5shiv.min.js"></script><![endif]-->
+        {% block head %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <title>{{ seotitle }} - {{ app['site.tagline'] }}</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="{{ app['site.meta_content'] }}">
+            <meta name="author" content="{{ app['site.author'] }}">
+            <link rel="stylesheet" href="/assets/css/styles.css">
+            <!--[if lt IE 9]><script src="/assets/vendor/html5shiv/dist/html5shiv.min.js"></script><![endif]-->
         {% endblock head %}
     </head>
     <body>
-    	<header id="site-header">
-	    	{% block header %}
-	    	{% endblock header %}
-    	</header>
-    	{% block content %}
-    	{% endblock content %}
-    	<footer id="site-footer">
-	        {% block footer %}
-	        	{% block scripts %}
-			        {# <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> #}
-			        {# <script>window.jQuery || document.write('<script src="/assets/vendor/jquery/dist/jquery.min.js"><\/script>')</script> #}
-			        <script>
-			            var _gaq=[['_setAccount','{{ app['site.ga_tracking_id'] }}'],['_trackPageview']];
-			            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-			            g.src='//www.google-analytics.com/ga.js';
-			            s.parentNode.insertBefore(g,s)}(document,'script'));
-			        </script>
-	        	{% endblock scripts %}
-	        {% endblock footer %}
+        <header id="site-header">
+            {% block header %}
+            {% endblock header %}
+        </header>
+        <article>
+            <header>
+                <h1>{{ title }}</h1>
+                <p>Published: <time pubdate="pubdate">{{ date }}</time></p>
+            </header>
+            {% block content %}
+            {% endblock content %}
+        </article>
+        <footer id="site-footer">
+            {% block footer %}
+                {% block scripts %}
+                    {# <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> #}
+                    {# <script>window.jQuery || document.write('<script src="/assets/vendor/jquery/dist/jquery.min.js"><\/script>')</script> #}
+                    <script>
+                        var _gaq=[['_setAccount','{{ app['site.ga_tracking_id'] }}'],['_trackPageview']];
+                        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+                        g.src='//www.google-analytics.com/ga.js';
+                        s.parentNode.insertBefore(g,s)}(document,'script'));
+                    </script>
+                {% endblock scripts %}
+            {% endblock footer %}
         </footer>
     </body>
 </html>

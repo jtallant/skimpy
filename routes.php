@@ -5,7 +5,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Stringy\StaticStringy as Str;
 
 $app->get('/', function() use ($app) {
@@ -34,7 +34,7 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
 	$categoryExists = isset($app['categories'][$archiveName]);
 
 	if (false === $isTag && false === $isCategory) {
-		throw new NotFoundHttpException;
+		$app->abort(404);
 	}
 
 	if ($isTag && $tagExists) {
@@ -71,42 +71,21 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
 		]
 	);
 
-	throw new NotFoundHttpException;
+	$app->abort(404);
 });
 
 // Load a piece of content
 $app->get('/{slug}', function($slug) use ($app) {
-	
-	// We find the file that corresponds to this slug
-	// (check pages folder then posts folder)
-	
-	// @TODO: Justin - Make the content directory configurable (not hard-coded)
-	$contentDirectory = realpath(__DIR__ . '/content');
-	
-	// @TODO: Justin - Refactor this logic (to line 109) in its own service class
-	if ( ! is_readable($contentDirectory)) {
-		throw new \RuntimeException("Could not read from the content directory: " . $contentDirectory);
-	}
-	
-	if (file_exists($contentDirectory . '/pages/' . $slug . '.md')) {
-		$file = $contentDirectory . '/pages/' . $slug . '.md';
-		$templateType = 'page';
-	}
-	elseif (file_exists($contentDirectory . '/posts/' . $slug . '.md')) {
-		$file = $contentDirectory . '/posts/' . $slug . '.md';
-		$templateType = 'post';
-	}
-	else {
-		// If the content does not exist, we abort with a 404
-		//$app->abort(404);
-		throw new NotFoundHttpException;
-	}
-	$rawFileContents = file_get_contents($file);
-	list($yamlData, $contentData) = explode('----------', $rawFileContents, 2);
 
-	// We load the contents of that into a twig template
-	// and render it 
-	$metadata = Yaml::parse($yamlData);
+	$content = $app['skimpy.contentLoader']->load($slug);
+
+	if (is_null($content)) {
+		$app->abort(404);
+	}
+
+	$app['skimpy.twigRenderer']->renderFromString($)
+
+	// dd($content);
 
 	// Twig Render 
 	// @TODO: Justin - Setup your templates and use the template_from_string() in Twig to allow the content to
@@ -119,14 +98,20 @@ $app->get('/{slug}', function($slug) use ($app) {
 
 // -------------------------------
 
-$app->error(function(NotFoundHttpException $e, $code) use ($app) {
+/**
+ * Handle 404 errors
+ */
+$app->error(function(HttpException $e, $code) use ($app) {
+	if (404 != $code) {
+		return;
+	}
 	return new Response(
 		$app['twig']->render(
 			'404.twig',
-			array(
+			[
 				'seotitle' => '404 Not Found',
 				'title' => "We couldn't find the page you are looking for.",
-			)
+			]
 		),
 		404
 	);

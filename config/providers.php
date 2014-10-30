@@ -6,3 +6,4 @@ $app->register(
 );
 
 $app->register(new Skimpy\SkimpyServiceProvider);
+$app->register(new Skimpy\Provider\ContentLoader);
