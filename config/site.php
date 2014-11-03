@@ -19,12 +19,12 @@ $app['site_email'] = 'you@example.com';
 # SwiftMailer
 # See http://silex.sensiolabs.org/doc/providers/swiftmailer.html
 $app['swiftmailer.options'] = array(
-    'host' => 'host',
-    'port' => '25',
-    'username' => 'username',
-    'password' => 'password',
+    'host'       => 'host',
+    'port'       => '25',
+    'username'   => 'username',
+    'password'   => 'password',
     'encryption' => null,
-    'auth_mode' => null
+    'auth_mode'  => null
 );
 
 $app['debug'] = true;
