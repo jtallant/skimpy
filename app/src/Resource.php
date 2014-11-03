@@ -1,14 +1,70 @@
 <?php namespace Skimpy;
 
-abstract class Resource {
+class Resource
+{
+    /**
+     * @var string
+     */
+    protected $title;
 
-    abstract function pluralType();
+    /**
+     * @var string
+     */
+    protected $seotitle;
 
-    abstract function getKey();
+    /**
+     * @var DateTime
+     */
+    protected $date;
 
-    public function getTemplate()
+    /**
+     * @var array
+     */
+    protected $categories;
+
+    /**
+     * @var array
+     */
+    protected $tags;
+
+    /**
+     * @var array
+     */
+    protected $metadata;
+
+    /**
+     * @var string
+     */
+    protected $template;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    public function __construct(array $metadata, $content, $type)
     {
-        return $this->pluralType().'/'.$this->getKey().'.twig';
+        $this->metadata = $metadata;
+        $this->content = $content;
+        $this->type = $type;
+        $this->setProperties();
+    }
+
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    public function getViewData()
+    {
+        $data = $this->metadata;
+        $data['content'] = $this->getContent();
+        return $data;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function getTitle()
@@ -16,7 +72,7 @@ abstract class Resource {
         return $this->title;
     }
 
-    public function getSeoTitle()
+    public function getSeotitle()
     {
         return $this->seotitle;
     }
@@ -36,8 +92,81 @@ abstract class Resource {
         return $this->tags;
     }
 
-    protected function formatDate($date)
+    public function getContent()
     {
-        return date($this->app['site.date_format'], strtotime($date));
+        return $this->content;
+    }
+
+    # NOTE: Should probably rename layout folder to 'templates'
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    protected function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    protected function setSeotitle($seotitle)
+    {
+        $this->seotitle = $seotitle;
+    }
+
+    protected function setDate($date)
+    {
+        if (is_int($date)) {
+            $dt = new \DateTime;
+            $dt->setTimestamp($date);
+            $this->date = $dt;
+        } elseif ($date instanceof \DateTime) {
+            $this->date = $date;
+        } elseif (is_string($date)) {
+            $this->date = new \DateTime($date);
+        } else {
+            throw new \Exception('Invalid value for date');
+        }
+    }
+
+    protected function setCategories($categories)
+    {
+        if (is_array($categories)) {
+            $this->categories = $categories;
+        } elseif (is_string($categories)) {
+            $this->categories = array_map('trim', explode(',', $categories));
+        } else {
+            throw new \Exception('Invalid value for categories');
+        }
+    }
+
+    protected function setTags($tags)
+    {
+        if (is_array($tags)) {
+            $this->tags = $tags;
+        } elseif (is_string($tags)) {
+            $this->tags = array_map('trim', explode(',', $tags));
+        } else {
+            throw new \Exception('Invalid value for tags');
+        }
+    }
+
+    protected function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    protected function setProperties()
+    {
+        foreach ($this->metadata as $k => $v) {
+            if (false === property_exists($this, $k)) {
+                throw new \Exception("Invalid property $k");
+            }
+            $setProp = 'set'.ucfirst($k);
+            $this->$setProp($v);
+        }
+
+        if (is_null($this->template)) {
+            $this->template = $this->type;
+        }
     }
 }
