@@ -1,6 +1,7 @@
 <?php namespace Skimpy;
 
 use Symfony\Component\Yaml\Yaml;
+use \Michelf\Markdown;
 
 class ContentLoader
 {
@@ -65,7 +66,8 @@ class ContentLoader
 
     protected function extractDisplayableContent($rawContent)
     {
-        return explode(static::METADATA_SEPARATOR, $rawContent, 2)[1];
+        $content = explode(static::METADATA_SEPARATOR, $rawContent, 2)[1];
+        return Markdown::defaultTransform($content);
     }
 
     protected function extractMetadata($rawContent)
