@@ -14,7 +14,7 @@ $app['site.content_dir']    = dirname(dirname(__FILE__)).'/content';
 
 # Emails.
 $app['admin_email'] = 'you@example.com';
-$app['site_email'] = 'you@example.com';
+$app['site_email']  = $app['admin_email'];
 
 # SwiftMailer
 # See http://silex.sensiolabs.org/doc/providers/swiftmailer.html
