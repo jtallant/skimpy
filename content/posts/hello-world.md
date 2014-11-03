@@ -3,10 +3,8 @@ date:       2015-05-16
 seotitle:   Hello World
 categories: Example Category
 tags:       Tag1, Tag2 # can use array or string
-layout:     master
-
----------------------------------------------------------
-
+template:   post
+----------
 <p>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

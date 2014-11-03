@@ -1,10 +1,8 @@
 title:      About Me
 date:       2015-05-16
 seotitle:   Hello World
-template:   master # This is the default but it can be overriden
-
----------------------------------------------------------
-
+template:   page
+----------
 <p>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
