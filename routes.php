@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Stringy\StaticStringy as Str;
 
+/**
+ * Home page
+ */
 $app->get('/', function() use ($app) {
 	return $app['twig']->render(
 		'home.twig',
@@ -17,9 +20,15 @@ $app->get('/', function() use ($app) {
 	);
 });
 
-# /category/{category-name}
-# /tag/{tag-name}
+/**
+ * Render category or tag archive
+ *
+ * /category/{category-name}
+ * /tag/{tag-name}
+ */
 $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) use ($app) {
+
+	return 'Archive code not ready yet';
 
 	# All this junk will be refactored and moved into some class inside of skimpy
 	# Just feeling things out for now
@@ -74,29 +83,22 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
 	$app->abort(404);
 });
 
-// Load a piece of content
+/**
+ * Render a page or post
+ */
 $app->get('/{slug}', function($slug) use ($app) {
 
-	$content = $app['skimpy.contentLoader']->load($slug);
+	$resource = $app['skimpy.contentLoader']->load($slug);
 
-	if (is_null($content)) {
+	if (is_null($resource)) {
 		$app->abort(404);
 	}
 
-	$app['skimpy.twigRenderer']->renderFromString($)
-
-	// dd($content);
-
-	// Twig Render 
-	// @TODO: Justin - Setup your templates and use the template_from_string() in Twig to allow the content to
-	// include twig syntax
-	return $app['twig']->render($templateType . '.twig', [
-		'metadata' => $metadata,    // array
-		'content'  => $contentData  // string
-	]);
+	return $app['twig']->render(
+		$resource->getTemplate().'.twig',
+		$resource->getViewData()
+	);
 });
-
-// -------------------------------
 
 /**
  * Handle 404 errors
