@@ -5,5 +5,4 @@ $app->register(
     ['twig.path' => __DIR__.'/../views']
 );
 
-$app->register(new Skimpy\SkimpyServiceProvider);
 $app->register(new Skimpy\Provider\ContentLoader);
