@@ -6,18 +6,18 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Stringy\StaticStringy as Str;
+// use Stringy\StaticStringy as Str;
 
 /**
  * Home page
  */
 $app->get('/', function() use ($app) {
-	return $app['twig']->render(
-		'home.twig',
-		[
-			'seotitle' => $app['site.title']
-		]
-	);
+    return $app['twig']->render(
+        'home.twig',
+        [
+            'seotitle' => $app['site.title']
+        ]
+    );
 });
 
 /**
@@ -52,33 +52,33 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
  */
 $app->get('/{slug}', function($slug) use ($app) {
 
-	$resource = $app['skimpy.contentLoader']->load($slug);
+    $resource = $app['skimpy.contentLoader']->load($slug);
 
-	if (is_null($resource)) {
-		$app->abort(404);
-	}
+    if (is_null($resource)) {
+        $app->abort(404);
+    }
 
-	return $app['twig']->render(
-		$resource->getTemplate().'.twig',
-		$resource->getViewData()
-	);
+    return $app['twig']->render(
+        $resource->getTemplate().'.twig',
+        $resource->getViewData()
+    );
 });
 
 /**
  * Handle 404 errors
  */
 $app->error(function(HttpException $e, $code) use ($app) {
-	if (404 != $code) {
-		return;
-	}
-	return new Response(
-		$app['twig']->render(
-			'404.twig',
-			[
-				'seotitle' => '404 Not Found',
-				'title' => "We couldn't find the page you are looking for.",
-			]
-		),
-		404
-	);
+    if (404 != $code) {
+        return;
+    }
+    return new Response(
+        $app['twig']->render(
+            '404.twig',
+            [
+                'seotitle' => '404 Not Found',
+                'title' => "We couldn't find the page you are looking for.",
+            ]
+        ),
+        404
+    );
 });
