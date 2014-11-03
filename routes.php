@@ -27,60 +27,24 @@ $app->get('/', function() use ($app) {
  * /tag/{tag-name}
  */
 $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) use ($app) {
+    return 'Archive code not ready yet';
 
-	return 'Archive code not ready yet';
+    # Find out if there are any posts with a matching category or tag
+    # If there are not throw 404
 
-	# All this junk will be refactored and moved into some class inside of skimpy
-	# Just feeling things out for now
-	$posts = $app['posts'];
-	$registeredCategories = $app['categories'];
-	$registeredTags = $app['tags'];
+    # Get all the posts with the matching category/tag
+    # convert them to resource objects
+    # put them in an array or collection
+    # pass them to the view
 
-	$isTag = 'tag' === $archiveType;
-	$isCategory = 'category' === $archiveType;
-
-	$tagExists = isset($app['tags'][$archiveName]);
-	$categoryExists = isset($app['categories'][$archiveName]);
-
-	if (false === $isTag && false === $isCategory) {
-		$app->abort(404);
-	}
-
-	if ($isTag && $tagExists) {
-		$target = $app['tags'][$archiveName];
-		$type = 'tags';
-	}
-
-	if ($isCategory && $categoryExists) {
-		$target = $app['categories'][$archiveName];
-		$type = 'categories';
-	}
-
-	# collect all the posts with the archiveType
-	$collection = [];
-	foreach ($posts as $p) {
-		if (false === isset($p[$type])) {
-			continue;
-		}
-
-		if (is_string($p[$type])) {
-			$p[$type] = array_map('trim', explode(',',  $p[$type]));
-		}
-
-		if (in_array($target, $p[$type])) {
-			$collection[] = $p;
-		}
-	}
-
-	return $app['twig']->render(
-		'/archives/default.twig',
-		[
-			'seotitle' => $target,
-			'collection' => $collection
-		]
-	);
-
-	$app->abort(404);
+    # collect all the posts with the archiveType
+    return $app['twig']->render(
+        'archive.twig',
+        [
+            'seotitle'   => 'foo',
+            'collection' => $collection
+        ]
+    );
 });
 
 /**
