@@ -1,4 +1,4 @@
-# Skimpy Slate
+# Skimpy
 
 **This project is in the very early stages of development. It is not ready to use.**
 
@@ -17,6 +17,7 @@ Skimpy will provide basic blog functionality without the use of a database but i
 * Clone this repo
 
 ## TODO
-* Move the archive routing code into skimpy
+* Collection for archives
+* Twig extension for rendering date in site default date format
 * Tests
 * A whole bunch of other stuff
