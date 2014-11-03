@@ -97,7 +97,6 @@ class Resource
         return $this->content;
     }
 
-    # NOTE: Should probably rename layout folder to 'templates'
     public function getTemplate()
     {
         return $this->template;
