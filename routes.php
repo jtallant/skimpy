@@ -6,6 +6,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Skimpy\ContentFinder;
 // use Stringy\StaticStringy as Str;
 
 /**
@@ -21,16 +22,31 @@ $app->get('/', function() use ($app) {
 });
 
 /**
+ * Render contact form
+ */
+$app->get('/contact', function() use ($app) {
+    return $app['twig']->render(
+        'contact.twig',
+        [
+            'title'    => 'Contact',
+            'seotitle' => 'Contact'
+        ]
+    );
+});
+
+/**
  * Render category or tag archive
  *
  * /category/{category-name}
  * /tag/{tag-name}
  */
 $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) use ($app) {
-    return 'Archive code not ready yet';
 
-    # Find out if there are any posts with a matching category or tag
-    # If there are not throw 404
+    $collection = $app['skimpy']->findPostsInArchive($archiveType, $archiveName);
+
+    if (is_null($collection)) {
+        $app->abort(404);
+    }
 
     # Get all the posts with the matching category/tag
     # convert them to resource objects
@@ -41,7 +57,8 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
     return $app['twig']->render(
         'archive.twig',
         [
-            'seotitle'   => 'foo',
+            'archiveName' => 'Web Development',
+            'seotitle'   => 'Web Development',
             'collection' => $collection
         ]
     );
@@ -52,15 +69,15 @@ $app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) u
  */
 $app->get('/{slug}', function($slug) use ($app) {
 
-    $resource = $app['skimpy.contentLoader']->load($slug);
+    $content = $app['skimpy']->find($slug);
 
-    if (is_null($resource)) {
+    if (is_null($content)) {
         $app->abort(404);
     }
 
     return $app['twig']->render(
-        $resource->getTemplate().'.twig',
-        $resource->getViewData()
+        $content->getTemplate().'.twig',
+        $content->getViewData()
     );
 });
 
