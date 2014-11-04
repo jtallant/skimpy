@@ -8,8 +8,8 @@ $app['site.ga_tracking_id'] = 'UA-XXXXXXXX-1';
 $app['site.timezone']       = 'America/Chicago';
 $app['site.date_format']    = 'F dS, Y';
 $app['site.meta_content']   = 'Content of meta description goes here';
-$app['site.posts_dir']      = dirname(dirname(__FILE__)).'/views/posts';
-$app['site.pages_dir']      = dirname(dirname(__FILE__)).'/views/pages';
+$app['site.posts_dir']      = dirname(dirname(__FILE__)).'/content/posts';
+$app['site.pages_dir']      = dirname(dirname(__FILE__)).'/content/pages';
 $app['site.content_dir']    = dirname(dirname(__FILE__)).'/content';
 
 # Emails.
