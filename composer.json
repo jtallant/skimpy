@@ -1,6 +1,6 @@
 {
     "name": "jtallant/skimpy",
-    "description": "Simple PHP blog with no GUI based CMS",
+    "description": "File based PHP blog",
     "keywords": ["blog"],
     "homepage": "http://github.com/jtallant/skimpy",
     "license": "MIT",
