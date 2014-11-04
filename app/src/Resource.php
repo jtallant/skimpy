@@ -1,5 +1,15 @@
 <?php namespace Skimpy;
 
+/*
+    This class has been replaced by the Content class.
+    I'm keeping it here for discussion for now.
+
+    This is an example where the content sets its own properties
+    given some parameters through the constructor.
+
+    The new content class has public setters and is not responsible
+    for setting its own properties.
+*/
 class Resource
 {
     /**
@@ -35,6 +45,16 @@ class Resource
     /**
      * @var string
      */
+    protected $content;
+
+    /**
+     * @var string
+     */
+    protected $excerpt;
+
+    /**
+     * @var string
+     */
     protected $template;
 
     /**
@@ -42,6 +62,8 @@ class Resource
      */
     protected $type;
 
+    # Consider taking the path to the file as the only param
+    # Figure everything else out from there
     public function __construct(array $metadata, $content, $type)
     {
         $this->metadata = $metadata;
@@ -97,6 +119,11 @@ class Resource
         return $this->content;
     }
 
+    public function getExcerpt()
+    {
+        return $this->excerpt;
+    }
+
     public function getTemplate()
     {
         return $this->template;
@@ -149,9 +176,20 @@ class Resource
         }
     }
 
+    protected function setExcerpt($excerpt)
+    {
+        $this->excerpt = $excerpt;
+    }
+
     protected function setTemplate($template)
     {
         $this->template = $template;
+    }
+
+    protected function buildExcerpt()
+    {
+        # get the first n chars of the content
+        # strip it and set is as the excerpt
     }
 
     protected function setProperties()
@@ -166,6 +204,10 @@ class Resource
 
         if (is_null($this->template)) {
             $this->template = $this->type;
+        }
+
+        if (is_null($this->excerpt)) {
+            $this->excerpt = $this->buildExcerpt();
         }
     }
 }
