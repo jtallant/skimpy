@@ -1,5 +1,7 @@
 {% extends 'layouts/master.twig' %}
 
+{% block title %}{{ archiveName }}{% endblock %}
+
 {% block content %}
 	{% for post in collection %}
 		<article>
