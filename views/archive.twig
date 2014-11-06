@@ -1,0 +1,36 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}{{ seotitle }}{% endblock %}
+
+{% block content %}
+    <h1>{{ archiveName | capitalize }}</h1>
+    {% for post in collection %}
+        <article>
+            <header>
+                <h1><a href="#">{{ post.getTitle }}</a></h1>
+                <p>Published: <time pubdate="pubdate">{{ post.getDate | date('F j Y') }}</time></p>
+            </header>
+            <div class="excerpt">
+                <p>{{ post.getExcerpt }}&hellip;</p>
+            </div> <!-- .excerpt -->
+            <footer>
+                {% if post.getCategories | length %}
+                    <span class="categories">
+                        Filed Under:
+                        {% for cat in post.getCategories %}
+                            <a href="/category/{{ cat }}">{{ cat }}</a>{{ loop.last ? '' : ',' }}
+                        {% endfor %}
+                    </span> <!-- .categories -->
+                {% endif %}
+                {% if post.getTags | length %}
+                    <span class="tags">
+                        Tagged With:
+                        {% for tag in post.getTags %}
+                            <a href="/tags/{{ tag }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
+                        {% endfor %}
+                    </span> <!-- .tags -->
+                {% endif %}
+            </footer>
+        </article>
+    {% endfor %}
+{% endblock content %}

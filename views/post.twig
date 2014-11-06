@@ -1,0 +1,9 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <header>
+        <h1>{{ title }}</h1>
+        <p>Published: <time pubdate="pubdate">{{ date | date('F j Y') }}</time></p>
+    </header>
+    {{ content | raw }}
+{% endblock content %}

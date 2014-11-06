@@ -2,3 +2,9 @@
 vendor/
 _dev/
 composer.lock
+_dev/
+php_errors.log
+vendor/
+Gemfile.lock
+composer.lock
+.c9/
