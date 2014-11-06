@@ -89,8 +89,12 @@ class ContentFromFileCreator
 
     protected function extractExcerpt()
     {
-        # TODO: Implement
-        return '';
+        if (isset($this->metadata['excerpt'])) {
+            return $this->metadata['excerpt'];
+        }
+
+        $content = $this->displayableContent;
+        return strip_tags(substr($content, 0, 255));
     }
 
     /**
