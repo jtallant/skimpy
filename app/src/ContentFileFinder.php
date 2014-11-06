@@ -65,13 +65,13 @@ class ContentFileFinder
         }
     }
 
-	public function findPostsContaining($string)
-	{
-		return $this->finder
-					->files()
-					->in($this->postsDirectory)
-					->contains($string);
-	}
+    public function findPostsContaining($string)
+    {
+        return $this->finder
+                    ->files()
+                    ->in($this->postsDirectory)
+                    ->contains("/$string/i");
+    }
 
     protected function pagePath($slug)
     {
