@@ -20,22 +20,22 @@ class Content
     /**
      * @var array
      */
-    protected $categories;
+    protected $categories = [];
 
     /**
      * @var array
      */
-    protected $tags;
+    protected $tags = [];
 
     /**
      * @var array
      */
-    protected $metadata;
+    protected $metadata = [];
 
     /**
      * @var array
      */
-    protected $viewData;
+    protected $viewData = [];
 
     /**
      * @var string
