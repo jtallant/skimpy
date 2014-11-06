@@ -2,27 +2,27 @@
 
 use Symfony\Component\Finder\Finder;
 
-class ContentFileFinder implements Contracts\ContentFinder
+class ContentFileFinder
 {
-	/**
-	 * @var Symfony\Component\Finder\Finder
-	 */
-	protected $finder;
+    /**
+     * @var Symfony\Component\Finder\Finder
+     */
+    protected $finder;
 
-	/**
-	 * @var string
-	 */
-	protected $pagesDirectory;
+    /**
+     * @var string
+     */
+    protected $pagesDirectory;
 
-	/**
-	 * @var string
-	 */
-	protected $postsDirectory;
+    /**
+     * @var string
+     */
+    protected $postsDirectory;
 
-	const DEFAULT_EXTENSION = '.md';
+    const DEFAULT_EXTENSION = '.md';
 
-	public function __construct(Finder $finder, $pagesDirectory, $postsDirectory)
-	{
+    public function __construct(Finder $finder, $pagesDirectory, $postsDirectory)
+    {
         if (false === is_readable($pagesDirectory)) {
             throw new \Exception("Could not read from the pages directory $pagesDirectory");
         }
@@ -32,19 +32,19 @@ class ContentFileFinder implements Contracts\ContentFinder
         }
 
         $this->finder = $finder;
-		$this->pagesDirectory = $pagesDirectory;
-		$this->postsDirectory = $postsDirectory;
-	}
+        $this->pagesDirectory = $pagesDirectory;
+        $this->postsDirectory = $postsDirectory;
+    }
 
-	/**
-	 * Find a post or page by name
-	 *
-	 * @param string $name name of the file without extension
-	 *
-	 * @return null|string
-	 */
-	public function findByName($name)
-	{
+    /**
+     * Find a post or page by name
+     *
+     * @param string $name name of the file without extension
+     *
+     * @return null|string
+     */
+    public function findByName($name)
+    {
         $files = $this->finder
                       ->files()
                       ->in([$this->pagesDirectory, $this->postsDirectory])
@@ -63,7 +63,7 @@ class ContentFileFinder implements Contracts\ContentFinder
         foreach ($files as $f) {
             return $f;
         }
-	}
+    }
 
 	public function findPostsContaining($string)
 	{
@@ -73,13 +73,13 @@ class ContentFileFinder implements Contracts\ContentFinder
 					->contains($string);
 	}
 
-	protected function pagePath($slug)
-	{
-		return $this->pagesDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
-	}
+    protected function pagePath($slug)
+    {
+        return $this->pagesDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
+    }
 
-	protected function postPath($slug)
-	{
-		return $this->postsDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
-	}
+    protected function postPath($slug)
+    {
+        return $this->postsDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
+    }
 }
