@@ -90,10 +90,7 @@ $app->error(function(HttpException $e, $code) use ($app) {
     return new Response(
         $app['twig']->render(
             '404.twig',
-            [
-                'seotitle' => '404 Not Found',
-                'title' => "We couldn't find the page you are looking for.",
-            ]
+            ['seotitle' => '404 Not Found']
         ),
         404
     );
