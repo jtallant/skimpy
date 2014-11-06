@@ -12,8 +12,7 @@ class ContentFromFileCreator
 {
     const METADATA_SEPARATOR = '----------';
 
-    # TODO: Make seotitle not required, default to title
-    const REQUIRED_METADATA = 'title|seotitle|date';
+    const REQUIRED_METADATA = 'title|date';
 
     const MARKDOWN_EXTENSIONS = 'markdown|mdown|mkdn|md|mkd|mdwn|mdtxt|mdtext|text';
 
@@ -30,6 +29,11 @@ class ContentFromFileCreator
     /**
      * @var array
      */
+    protected $rawMetadata;
+
+    /**
+     * @var array
+     */
     protected $metadata;
 
     /**
@@ -41,8 +45,9 @@ class ContentFromFileCreator
     {
         $this->file = $file;
         $this->rawFileContents = $file->getContents();
+        $this->rawMetadata = $this->parseMetadata();
+        $this->checkRawMetadataHasRequiredKeys();
         $this->metadata = $this->extractMetadata();
-        $this->checkMetadataHasRequiredKeys();
         $this->displayableContent = $this->extractDisplayableContent();
     }
 
@@ -59,7 +64,6 @@ class ContentFromFileCreator
         $content = new Content;
         $content
             ->setTitle($this->metadata['title'])
-            # TODO: Make seotitle not required
             ->setSeoTitle($this->metadata['seotitle'])
             ->setDate($this->metadata['date'])
             ->setMetadata($this->metadata)
@@ -136,14 +140,14 @@ class ContentFromFileCreator
         throw new \Exception("Cannot determine content type from path $filePath");
     }
 
-    protected function checkMetadataHasRequiredKeys()
+    protected function checkRawMetadataHasRequiredKeys()
     {
         $filePath = $this->file->getRealPath();
         foreach ($this->requiredMetadata() as $key) {
-            if (false === array_key_exists($key, $this->metadata)) {
+            if (false === array_key_exists($key, $this->rawMetadata)) {
                 throw new \Exception("$filePath is missing required metadata key $key.");
             }
-            if (empty($this->metadata[$key])) {
+            if (empty($this->rawMetadata[$key])) {
                 throw new \Exception("$filePath requires a value for metadata key $key.");
             }
         }
@@ -165,14 +169,32 @@ class ContentFromFileCreator
         return in_array($this->file->getExtension(), $this->markdownExtensions());
     }
 
-    protected function extractMetadata()
+    protected function parseMetadata()
     {
         $yaml = explode(static::METADATA_SEPARATOR, $this->rawFileContents, 2)[0];
-        $metadata = Yaml::parse($yaml);
+        return Yaml::parse($yaml);
+    }
 
+    protected function extractMetadata()
+    {
+        $formattedMetadata = $this->formatRawMetadata();
+        return $this->fillDefaultMetadataValues($formattedMetadata);
+    }
+
+    protected function formatRawMetadata()
+    {
+        $metadata = $this->rawMetadata;
         $dt = new \DateTime;
         $dt->setTimestamp($metadata['date']);
         $metadata['date'] = $dt;
+        return $metadata;
+    }
+
+    protected function fillDefaultMetadataValues($metadata)
+    {
+        if (empty($metadata['seotitle'])) {
+            $metadata['seotitle'] = $metadata['title'];
+        }
         return $metadata;
     }
 
