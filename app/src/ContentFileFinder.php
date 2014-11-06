@@ -46,9 +46,9 @@ class ContentFileFinder
     public function findByName($name)
     {
         $files = $this->finder
-                      ->files()
-                      ->in([$this->pagesDirectory, $this->postsDirectory])
-                      ->name($name.'.*');
+            ->files()
+            ->in([$this->pagesDirectory, $this->postsDirectory])
+            ->name($name.'.*');
 
         if (empty($files->count())) {
             return null;
@@ -68,9 +68,9 @@ class ContentFileFinder
     public function findPostsContaining($string)
     {
         return $this->finder
-                    ->files()
-                    ->in($this->postsDirectory)
-                    ->contains("/$string/i");
+            ->files()
+            ->in($this->postsDirectory)
+            ->contains("/$string/i");
     }
 
     protected function pagePath($slug)
