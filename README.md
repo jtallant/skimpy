@@ -30,6 +30,8 @@ based blog that doesn't require any generating.
 * Clone this repo
 
 ## TODO
+* Slug opton in metadata
+* Slug property on content class
 * Collection for archives
 * Twig extension for rendering date in site default date format
 * Env detection
