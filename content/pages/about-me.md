@@ -1,6 +1,5 @@
 title:      About Me
 date:       2015-05-16
-seotitle:   Hello World
 template:   page
 ----------
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

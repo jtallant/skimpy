@@ -1,31 +1,36 @@
 {% extends 'layouts/master.twig' %}
 
-{% block title %}{{ archiveName }}{% endblock %}
+{% block title %}{{ seotitle }}{% endblock %}
 
 {% block content %}
-	{% for post in collection %}
-		<article>
-			<header>
-				<h1><a href="#">{{ post.getTitle }}</a></h1>
-				<p>Published: <time pubdate="pubdate">{{ date | date('F j Y') }}</time></p>
-			</header>
-			<div class="excerpt">
-				{# TODO: get the excerpt #}
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</div> <!-- .excerpt -->
-			<footer>
-				<span class="categories">
-					Filed Under: <a href="#">Category Name</a>
-				</span> <!-- .categories -->
-				<span class="tags">
-					Tagged With: <a href="#">Tag 1</a>, <a href="#">Tag 2</a>
-				</span> <!-- .tags -->
-			</footer>
-		</article>
-	{% endfor %}
+    <h1>{{ archiveName | capitalize }}</h1>
+    {% for post in collection %}
+        <article>
+            <header>
+                <h1><a href="#">{{ post.getTitle }}</a></h1>
+                <p>Published: <time pubdate="pubdate">{{ post.getDate | date('F j Y') }}</time></p>
+            </header>
+            <div class="excerpt">
+                <p>{{ post.getExcerpt }}&hellip;</p>
+            </div> <!-- .excerpt -->
+            <footer>
+                {% if post.getCategories | length %}
+                    <span class="categories">
+                        Filed Under:
+                        {% for cat in post.getCategories %}
+                            <a href="/category/{{ cat }}">{{ cat }}</a>{{ loop.last ? '' : ',' }}
+                        {% endfor %}
+                    </span> <!-- .categories -->
+                {% endif %}
+                {% if post.getTags | length %}
+                    <span class="tags">
+                        Tagged With:
+                        {% for tag in post.getTags %}
+                            <a href="/tags/{{ tag }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
+                        {% endfor %}
+                    </span> <!-- .tags -->
+                {% endif %}
+            </footer>
+        </article>
+    {% endfor %}
 {% endblock content %}

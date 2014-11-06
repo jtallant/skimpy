@@ -36,32 +36,46 @@ $app->get('/contact', function() use ($app) {
 /**
  * Render category or tag archive
  *
- * /category/{category-name}
- * /tag/{tag-name}
+ * /category/{category-name-slug}
+ * /tag/{tag-name-slug}
  */
-$app->get('/{archiveType}/{archiveName}', function($archiveType, $archiveName) use ($app) {
+$app->get('/{archiveType}/{archiveNameSlug}', function($archiveType, $archiveNameSlug) use ($app) {
+
+    $mappings = $app['archive_mappings'];
+
+    # NOTE: I would like to not have this in the routes file,
+    # but I also would like to avoid injecting the $app into the Skimpy class
+    # What to do...?
+    # Maybe create a class just for this stuff?
+    if (isset($mappings[$archiveNameSlug])) {
+        $archiveName = $mappings[$archiveNameSlug];
+    } else {
+        $archiveName = $app['skimpy']->archiveNameFromSlug($archiveNameSlug);
+        # Make sure that a mapped archive name
+        # isn't available at both the mapped slug
+        # and the guessed slug.
+        $flippedMappings = array_flip($mappings);
+        if (isset($flippedMappings[$archiveName])) {
+            $app->abort(404);
+        }
+    }
 
     $collection = $app['skimpy']->findPostsInArchive($archiveType, $archiveName);
 
-    if (is_null($collection)) {
+    if (empty($collection)) {
         $app->abort(404);
     }
 
-    # Get all the posts with the matching category/tag
-    # convert them to resource objects
-    # put them in an array or collection
-    # pass them to the view
-
-    # collect all the posts with the archiveType
     return $app['twig']->render(
         'archive.twig',
         [
-            'archiveName' => 'Web Development',
-            'seotitle'   => 'Web Development',
-            'collection' => $collection
+            'archiveName' => $archiveName,
+            'seotitle'    => $archiveName,
+            'collection'  => $collection
         ]
     );
-});
+})
+->assert('archiveType', 'category|tag');
 
 /**
  * Render a page or post

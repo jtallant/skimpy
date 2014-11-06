@@ -8,6 +8,8 @@ $app = new Silex\Application();
 
 require __DIR__.'/../config/site.php';
 
+require __DIR__.'/../config/archive-mappings.php';
+
 date_default_timezone_set($app['site.timezone']);
 
 require __DIR__.'/../routes.php';
