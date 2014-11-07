@@ -10,6 +10,11 @@ class ContentFileFinder
     protected $finder;
 
     /**
+     * @var Skimpy\ContentFromFileCreator
+     */
+    protected $contentFromFileCreator;
+
+    /**
      * @var string
      */
     protected $pagesDirectory;
@@ -19,10 +24,12 @@ class ContentFileFinder
      */
     protected $postsDirectory;
 
-    const DEFAULT_EXTENSION = '.md';
-
-    public function __construct(Finder $finder, $pagesDirectory, $postsDirectory)
-    {
+    public function __construct(
+        Finder $finder,
+        ContentFromFileCreator $contentFromFileCreator,
+        $pagesDirectory,
+        $postsDirectory
+    ) {
         if (false === is_readable($pagesDirectory)) {
             throw new \Exception("Could not read from the pages directory $pagesDirectory");
         }
@@ -32,6 +39,7 @@ class ContentFileFinder
         }
 
         $this->finder = $finder;
+        $this->contentFromFileCreator = $contentFromFileCreator;
         $this->pagesDirectory = $pagesDirectory;
         $this->postsDirectory = $postsDirectory;
     }
@@ -41,7 +49,7 @@ class ContentFileFinder
      *
      * @param string $name name of the file without extension
      *
-     * @return null|string
+     * @return Skimpy\Content|null
      */
     public function findByName($name)
     {
@@ -55,31 +63,52 @@ class ContentFileFinder
         }
 
         if ($files->count() > 1) {
-            # TODO: Better exception
+            # TODO: DuplicateContentFileNameException
             # List the file paths of the duplicates
             throw new \Exception("You can't have pages and posts with the same name.");
         }
 
         foreach ($files as $f) {
-            return $f;
+            return $this->contentFromFileCreator->createContentObject($f);
         }
     }
 
-    public function findPostsContaining($string)
+    public function findPostsContainingAttributeValue($attribute, $targetValue)
     {
-        return $this->finder
+        $files = $this->finder
             ->files()
-            ->in($this->postsDirectory)
-            ->contains("/$string/i");
+            ->in($this->postsDirectory);
+
+        $getAttributeValue = $this->getGetterMethodForAttribute($attribute);
+        $posts = [];
+        foreach ($files as $f) {
+            $content = $this->contentFromFileCreator->createContentObject($f);
+            $attrValue = $content->$getAttributeValue();
+
+            if (is_array($attrValue) && in_array($targetValue, $attrValue)) {
+                $posts[] = $content;
+                continue;
+            }
+
+            if ($attrValue == $targetValue) {
+                $posts[] = $content;
+            }
+        }
+
+        return $posts;
     }
 
-    protected function pagePath($slug)
+    protected function getGetterMethodForAttribute($attribute)
     {
-        return $this->pagesDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
-    }
-
-    protected function postPath($slug)
-    {
-        return $this->postsDirectory.'/'.$slug.static::DEFAULT_EXTENSION;
+        $refClass = new \ReflectionClass("\Skimpy\Content");
+        $methods = $refClass->getMethods();
+        foreach ($methods as $m) {
+            $isGetter = 'get' === substr($m->name, 0, 3);
+            $getterContainsAttribute = false !== stripos(strtolower($m->name), $attribute);
+            if ($isGetter && $getterContainsAttribute) {
+                return $m->name;
+            }
+        }
+        throw new \Exception("\Skimpy\Content has no getter method for attribute '$attribute'.");
     }
 }

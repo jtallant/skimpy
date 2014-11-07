@@ -2,8 +2,14 @@
 
 class Skimpy {
 
+    /**
+     * @var Skimpy\ContentFileFinder
+     */
     protected $contentFileFinder;
 
+    /**
+     * @var array
+     */
     protected $validArchiveTypes = ['category', 'tag'];
 
     public function __construct(ContentFileFinder $contentFileFinder)
@@ -13,15 +19,7 @@ class Skimpy {
 
     public function find($slug)
     {
-        $file = $this->contentFileFinder->findByName($slug);
-
-        if (is_null($file)) {
-            return null;
-        }
-
-        $content = ContentFromFileCreator::create($file);
-
-        return $content;
+        return $this->contentFileFinder->findByName($slug);
     }
 
     public function findPostsInArchive($type, $name)
@@ -31,29 +29,9 @@ class Skimpy {
             throw new Exception("Invalid archive type $type. Valid types include $validTypes");
         }
 
-        $files = $this->contentFileFinder->findPostsContaining($name);
+        $attribute = 'category' === $type ? 'categories' : 'tags';
 
-        if ('category' === $type) {
-            $getArchiveValues = 'getCategories';
-        } else {
-            $getArchiveValues = 'getTags';
-        }
-
-        $posts = [];
-        foreach ($files as $f) {
-            $content = ContentFromFileCreator::create($f);
-            $archiveValues = array_map(
-                function($value) {
-                    return strtolower($value);
-                },
-                $content->$getArchiveValues()
-            );
-
-            if (in_array(strtolower($name), $archiveValues)) {
-                $posts[] = $content;
-            }
-        }
-        return $posts;
+        return $this->contentFileFinder->findPostsContainingAttributeValue($attribute, $name);
     }
 
     public function archiveNameFromSlug($slug)

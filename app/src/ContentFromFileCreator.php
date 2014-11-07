@@ -1,104 +1,85 @@
 <?php namespace Skimpy;
 
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Parser;
 use Michelf\Markdown;
 
-# Maybe make an interface called ContentCreator
-# and call this ContentFromFileCreator?
-# How to do this without knowing what the other implementations
-# would take in their create method?
 class ContentFromFileCreator
 {
     const METADATA_SEPARATOR = '----------';
 
     const REQUIRED_METADATA = 'title|date';
 
-    const MARKDOWN_EXTENSIONS = 'markdown|mdown|mkdn|md|mkd|mdwn|mdtxt|mdtext|text';
+    /**
+     * @var Symfony\Component\Yaml\Parser
+     */
+    protected $parser;
 
     /**
-     * @var Symfony\Component\Finder\SplFileInfo
+     * @var Michelf\Markdown
      */
-    protected $file;
+    protected $markdown;
 
-    /**
-     * @var string
-     */
-    protected $rawFileContents;
-
-    /**
-     * @var array
-     */
-    protected $rawMetadata;
-
-    /**
-     * @var array
-     */
-    protected $metadata;
-
-    /**
-     * @var string
-     */
-    protected $displayableContent;
-
-    protected function __construct(SplFileInfo $file)
+    public function __construct(Parser $parser = null, Markdown $markdown = null)
     {
-        $this->file = $file;
-        $this->rawFileContents = $file->getContents();
-        $this->rawMetadata = $this->parseMetadata();
-        $this->checkRawMetadataHasRequiredKeys();
-        $this->metadata = $this->extractMetadata();
-        $this->displayableContent = $this->extractDisplayableContent();
-    }
-
-    public static function create(SplFileInfo $file)
-    {
-        return (new static($file))->createContentObject();
+        $this->parser = $parser ?: new Parser;
+        $this->markdown = $markdown ?: new Markdown;
     }
 
     /**
+     * Takes file data and returns a Content object
+     *
+     * @param SplFileInfo $file
+     *
      * @return \Skimpy\Content
      */
-    protected function createContentObject()
+    public function createContentObject(SplFileInfo $file)
     {
+        $rawFileContents = $file->getContents();
+        $rawMetadata = $this->parseMetadata($rawFileContents);
+        $this->checkRawMetadataHasRequiredKeys($rawMetadata, $file->getRealPath());
+        $metadata = $this->extractMetadata($rawMetadata);
+        $displayableContent = $this->extractDisplayableContent($rawFileContents);
+        $viewData = $metadata;
+        $viewData['content'] = $displayableContent;
+
         $content = new Content;
         $content
-            ->setTitle($this->metadata['title'])
-            ->setSeoTitle($this->metadata['seotitle'])
-            ->setDate($this->metadata['date'])
-            ->setMetadata($this->metadata)
-            ->setViewData($this->extractViewData())
-            ->setDisplayableContent($this->displayableContent)
-            ->setExcerpt($this->extractExcerpt())
-            ->setTemplate($this->determineTemplate())
-            ->setType($this->determineContentType());
+            ->setTitle($metadata['title'])
+            ->setSeoTitle($metadata['seotitle'])
+            ->setDate($metadata['date'])
+            ->setMetadata($metadata)
+            ->setViewData($viewData)
+            ->setDisplayableContent($displayableContent)
+            ->setExcerpt($this->extractExcerpt($metadata, $displayableContent))
+            ->setTemplate($this->determineTemplate($metadata, $file->getRealPath()))
+            ->setType($this->determineContentType($file->getRealPath()));
 
-        if (false === empty($this->metadata['categories'])) {
-            $content->setCategories($this->metadata['categories']);
+        if (false === empty($metadata['categories'])) {
+            $content->setCategories($metadata['categories']);
         }
 
-        if (false === empty($this->metadata['tags'])) {
-            $content->setTags($this->metadata['tags']);
+        if (false === empty($metadata['tags'])) {
+            $content->setTags($metadata['tags']);
         }
 
         return $content;
     }
 
-    protected function extractViewData()
+    /**
+     * Returns the excerpt for the content
+     *
+     * @param array  $metadata
+     * @param string $displayableContent
+     *
+     * @return string
+     */
+    protected function extractExcerpt(array $metadata, $displayableContent)
     {
-        $data = $this->metadata;
-        $data['content'] = $this->displayableContent;
-        return $data;
-    }
-
-    protected function extractExcerpt()
-    {
-        if (isset($this->metadata['excerpt'])) {
-            return $this->metadata['excerpt'];
+        if (isset($metadata['excerpt'])) {
+            return $metadata['excerpt'];
         }
-
-        $content = $this->displayableContent;
-        return strip_tags(substr($content, 0, 255));
+        return strip_tags(substr($displayableContent, 0, 255));
     }
 
     /**
@@ -109,23 +90,31 @@ class ContentFromFileCreator
      *
      * The template can be overriden in the metadata.
      *
+     * @param array  $metadata
+     * @param string $filePath
+     *
      * @return string
      */
-    protected function determineTemplate()
+    protected function determineTemplate(array $metadata, $filePath)
     {
-        if (false === empty($this->metadata['template'])) {
+        if (false === empty($metadata['template'])) {
             # TODO: Check template file exists
             # or don't and just let twig throw the exception
-            return $this->metadata['template'];
+            return $metadata['template'];
         }
 
-        return $this->determineContentType();
+        return $this->determineContentType($filePath);
     }
 
-    protected function determineContentType()
+    /**
+     * Determines if the content is a page or a post
+     *
+     * @param string $filePath
+     *
+     * @return string
+     */
+    protected function determineContentType($filePath)
     {
-        $filePath = $this->file->getRealPath();
-
         if (false !== stripos($filePath, '/posts/')) {
             return 'post';
         }
@@ -134,63 +123,95 @@ class ContentFromFileCreator
             return 'page';
         }
 
-        # The type is based on the directory it lives in
-        # The type is used to determine what template to render it into
-        # TODO: Find a way to be more clear about this.
-        throw new \Exception("Cannot determine content type from path $filePath");
+        # TODO: Invalid content location exception
+        $message = "Cannot determine content type from path $filePath. ";
+        $message .= 'Expecting content to live inside a "pages" or "posts" directory.';
+        throw new \Exception($message);
     }
 
-    protected function checkRawMetadataHasRequiredKeys()
+    /**
+     * Throws an exception if required metadata is missing
+     *
+     * @param array  $rawMetadata
+     * @param string $filePath
+     *
+     * @return void
+     */
+    protected function checkRawMetadataHasRequiredKeys(array $rawMetadata, $filePath)
     {
-        $filePath = $this->file->getRealPath();
-        foreach ($this->requiredMetadata() as $key) {
-            if (false === array_key_exists($key, $this->rawMetadata)) {
+        foreach ($this->getRequiredMetadata() as $key) {
+            if (false === array_key_exists($key, $rawMetadata)) {
                 throw new \Exception("$filePath is missing required metadata key $key.");
             }
-            if (empty($this->rawMetadata[$key])) {
+            if (empty($rawMetadata[$key])) {
                 throw new \Exception("$filePath requires a value for metadata key $key.");
             }
         }
     }
 
-    protected function extractDisplayableContent()
+    /**
+     * Retrieves the non-metadata portion of the file
+     *
+     * @param string $rawFileContents
+     *
+     * @return string
+     */
+    protected function extractDisplayableContent($rawFileContents)
     {
-        $content = explode(static::METADATA_SEPARATOR, $this->rawFileContents, 2)[1];
-
-        if ($this->hasMarkdownExtension()) {
-            return Markdown::defaultTransform($content);
-        }
-
-        return $content;
+        $content = explode(static::METADATA_SEPARATOR, $rawFileContents, 2)[1];
+        return $this->markdown->transform($content);
     }
 
-    protected function hasMarkdownExtension()
+    /**
+     * Retrieves the metadata in array format
+     *
+     * @param string $rawFileContents
+     *
+     * @return string
+     */
+    protected function parseMetadata($rawFileContents)
     {
-        return in_array($this->file->getExtension(), $this->markdownExtensions());
+        $yaml = explode(static::METADATA_SEPARATOR, $rawFileContents, 2)[0];
+        return $this->parser->parse($yaml);
     }
 
-    protected function parseMetadata()
+    /**
+     * Formats the metadata, fills in fallback for optional keys
+     *
+     * @param array $rawMetadata
+     *
+     * @return array formatted metadata
+     */
+    protected function extractMetadata(array $rawMetadata)
     {
-        $yaml = explode(static::METADATA_SEPARATOR, $this->rawFileContents, 2)[0];
-        return Yaml::parse($yaml);
-    }
-
-    protected function extractMetadata()
-    {
-        $formattedMetadata = $this->formatRawMetadata();
+        $formattedMetadata = $this->formatRawMetadata($rawMetadata);
         return $this->fillDefaultMetadataValues($formattedMetadata);
     }
 
-    protected function formatRawMetadata()
+    /**
+     * Formats the raw metadata and returns it
+     *
+     * @param array $rawMetadata
+     *
+     * @return array formatted metadata
+     */
+    protected function formatRawMetadata(array $rawMetadata)
     {
-        $metadata = $this->rawMetadata;
+        $metadata = $rawMetadata;
         $dt = new \DateTime;
         $dt->setTimestamp($metadata['date']);
         $metadata['date'] = $dt;
         return $metadata;
     }
 
-    protected function fillDefaultMetadataValues($metadata)
+    /**
+     * Populates optional keys with their fallback if there is one
+     *
+     * @param array $metadata
+     *
+     * @return array metadata with fallback key values
+     */
+    protected function fillDefaultMetadataValues(array $metadata)
     {
         if (empty($metadata['seotitle'])) {
             $metadata['seotitle'] = $metadata['title'];
@@ -198,12 +219,12 @@ class ContentFromFileCreator
         return $metadata;
     }
 
-    protected function markdownExtensions()
-    {
-        return explode('|', static::MARKDOWN_EXTENSIONS);
-    }
-
-    protected function requiredMetadata()
+    /**
+     * Returns an array of required metadata keys
+     *
+     * @return array
+     */
+    protected function getRequiredMetadata()
     {
         return explode('|', static::REQUIRED_METADATA);
     }

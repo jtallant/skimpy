@@ -27,21 +27,21 @@ $app->register(
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 
 /**
+ * Register the ContentFromFileCreator
+ */
+$app->register(new Skimpy\Provider\ContentFromFileCreator);
+
+/**
  * Register the Finder
  */
 $app->register(new Skimpy\Provider\Finder);
 
 /**
- * Register ContentFileLoader
+ * Register the ContentFileFinder
  */
 $app->register(new Skimpy\Provider\ContentFileFinder);
 
 /**
- * Register the ContentFromFileCreator
- */
-// $app->register(new Skimpy\Provider\ContentFromFileCreator);
-
-/**
- * Register the SkimpyServiceProvider
+ * Register Skimpy
  */
 $app->register(new Skimpy\Provider\Skimpy);

@@ -25,7 +25,13 @@ class ContentFileFinder implements ServiceProviderInterface
             throw new \Exception('The '.$app['site.posts_dir'].' is not readable');
         }
 
-        $contentFileFinder = new \Skimpy\ContentFileFinder($app['finder'], $app['site.pages_dir'], $app['site.posts_dir']);
+        $contentFileFinder = new \Skimpy\ContentFileFinder(
+            $app['finder'],
+            $app['contentFromFileCreator'],
+            $app['site.pages_dir'],
+            $app['site.posts_dir']
+        );
+
         $app['contentFileFinder'] = $contentFileFinder;
     }
 
