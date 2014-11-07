@@ -104,7 +104,7 @@ class ContentFileFinder
         $methods = $refClass->getMethods();
         foreach ($methods as $m) {
             $isGetter = 'get' === substr($m->name, 0, 3);
-            $getterContainsAttribute = false !== stripos(strtolower($m->name), $attribute);
+            $getterContainsAttribute = false !== stripos($m->name, $attribute);
             if ($isGetter && $getterContainsAttribute) {
                 return $m->name;
             }
