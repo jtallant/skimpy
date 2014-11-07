@@ -38,3 +38,9 @@ based blog that doesn't require any generating.
 * Tests
 * Import from WordPress
 * A whole bunch of other stuff
+
+## NOTE
+* URL according to W3C are case sensitive. This means that you will get a 404
+  if the casing is incorrect for some uri.
+  You can use mod_rewrite to 301 redirect any URIs containing uppercase characters
+  to all lowercase characters.
