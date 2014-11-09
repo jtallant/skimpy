@@ -1,19 +1,42 @@
 <?php
 
-error_reporting(E_ALL);
-
 require __DIR__.'/../vendor/autoload.php';
 
-$app = new Silex\Application();
+$app = new Silex\Application;
 
-require __DIR__.'/../config/site.php';
+$app['path.base'] = __DIR__.'/../';
 
-require __DIR__.'/../config/archive-mappings.php';
+/**
+ * Register Default Configs
+ */
+$app->register(
+    new Igorw\Silex\ConfigServiceProvider(
+        __DIR__."/../config/default.yml",
+        ['path.base' => $app['path.base']]
+    )
+);
+
+/**
+ * Load the environment variables if there are any
+ */
+if (file_exists($app['path.base'].'/.env')) {
+    Dotenv::load($app['path.base']);
+}
+
+$app['env'] = getenv('APP_ENV') ?: 'prod';
+
+/**
+ * Override the Default Configs with the current environment configs
+ * if there is a config file matching the environment name.
+ */
+if (file_exists(__DIR__."/../config/{$app['env']}.yml")) {
+    $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/{$app['env']}.yml"));
+}
+
+require __DIR__.'/providers.php';
 
 date_default_timezone_set($app['site.timezone']);
 
-require __DIR__.'/../routes.php';
-
-require __DIR__.'/../config/providers.php';
+require __DIR__.'/../app/routes.php';
 
 return $app;

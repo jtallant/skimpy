@@ -8,3 +8,4 @@ vendor/
 Gemfile.lock
 composer.lock
 .c9/
+.env

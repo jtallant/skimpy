@@ -18,7 +18,8 @@ $app->get('/', function() use ($app) {
             'seotitle' => $app['site.title']
         ]
     );
-});
+})
+->bind('home');
 
 /**
  * Render contact form
@@ -31,7 +32,8 @@ $app->get('/contact', function() use ($app) {
             'seotitle' => 'Contact'
         ]
     );
-});
+})
+->bind('contact');
 
 /**
  * Render category or tag archive
@@ -75,7 +77,8 @@ $app->get('/{archiveType}/{archiveNameSlug}', function($archiveType, $archiveNam
         ]
     );
 })
-->assert('archiveType', 'category|tag');
+->assert('archiveType', 'category|tag')
+->bind('archive');
 
 /**
  * Render a page or post
@@ -92,7 +95,8 @@ $app->get('/{slug}', function($slug) use ($app) {
         $content->getTemplate().'.twig',
         $content->getViewData()
     );
-});
+})
+->bind('content');
 
 /**
  * Handle 404 errors

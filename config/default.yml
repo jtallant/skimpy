@@ -1,0 +1,30 @@
+site.title: Site title
+site.author: Author Name
+
+# Optional google analytics tracking code
+site.ga_tracking_id: UA-XXXXXXXX-1
+
+# A valid PHP timezone
+# http://php.net/manual/en/timezones.php
+site.timezone: America/Chicago
+
+# The default date formatting when displaying post dates
+# http://php.net/manual/en/function.date.php
+site.date_format: 'F dS, Y'
+
+# https://support.google.com/webmasters/answer/35624?hl=en#1
+site.meta_content: Content of meta description goes here
+site.admin_email: you@example.com
+
+swiftmailer.options:
+  host: host
+  port: 25
+  username: username
+  password: password
+  encryption:
+  auth_mode:
+
+path.pages: %path.base%/content/pages
+path.posts: %path.base%/content/posts
+
+debug: false
