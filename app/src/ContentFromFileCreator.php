@@ -3,6 +3,7 @@
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
 use Michelf\Markdown;
+use Skimpy\Entity\Content;
 
 class ContentFromFileCreator
 {

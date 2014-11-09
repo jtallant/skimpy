@@ -1,4 +1,4 @@
-<?php namespace Skimpy;
+<?php namespace Skimpy\Entity;
 
 class Content
 {
