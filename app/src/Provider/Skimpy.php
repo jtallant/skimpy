@@ -7,7 +7,7 @@ class Skimpy implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $app['skimpy'] = new \Skimpy\Skimpy($app['contentFileFinder']);
+        $app['skimpy'] = new \Skimpy\Skimpy($app['contentFinder']);
     }
 
     public function boot(Application $app)

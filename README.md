@@ -30,7 +30,6 @@ based blog that doesn't require any generating.
 * Clone this repo
 
 ## TODO
-* Slug option in metadata
 * Slug property on content class
 * Collection for archives
 * Twig extension for rendering date in site default date format
@@ -40,7 +39,7 @@ based blog that doesn't require any generating.
 * A whole bunch of other stuff
 
 ## NOTE
-* URL according to W3C are case sensitive. This means that you will get a 404
+* URIs according to W3C are case sensitive. This means that you will get a 404
   if the casing is incorrect for some uri.
   You can use mod_rewrite to 301 redirect any URIs containing uppercase characters
   to all lowercase characters.

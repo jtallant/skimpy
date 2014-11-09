@@ -3,11 +3,11 @@
 {% block title %}{{ seotitle }}{% endblock %}
 
 {% block content %}
-    <h1>{{ archiveName | capitalize }}</h1>
+    <h1>{{ archiveName | title }}</h1>
     {% for post in collection %}
         <article>
             <header>
-                <h1><a href="#">{{ post.getTitle }}</a></h1>
+                <h1><a href="/{{ post.getSlug }}">{{ post.getTitle }}</a></h1>
                 <p>Published: <time pubdate="pubdate">{{ post.getDate | date('F j Y') }}</time></p>
             </header>
             <div class="excerpt">
@@ -26,7 +26,7 @@
                     <span class="tags">
                         Tagged With:
                         {% for tag in post.getTags %}
-                            <a href="/tags/{{ tag }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
+                            <a href="/tags/{{ tag | lower }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
                         {% endfor %}
                     </span> <!-- .tags -->
                 {% endif %}

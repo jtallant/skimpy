@@ -5,6 +5,11 @@ class Content
     /**
      * @var string
      */
+    protected $slug;
+
+    /**
+     * @var string
+     */
     protected $title;
 
     /**
@@ -56,6 +61,17 @@ class Content
      * @var string
      */
     protected $type;
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
 
     public function getTitle()
     {

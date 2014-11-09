@@ -45,6 +45,7 @@ class ContentFromFileCreator
 
         $content = new Content;
         $content
+            ->setSlug($this->extractSlug($file))
             ->setTitle($metadata['title'])
             ->setSeoTitle($metadata['seotitle'])
             ->setDate($metadata['date'])
@@ -64,6 +65,19 @@ class ContentFromFileCreator
         }
 
         return $content;
+    }
+
+    /**
+     * Returns the filename without the extension
+     *
+     * @param SplFileInfo $file
+     *
+     * @return string
+     */
+    protected function extractSlug(SplFileInfo $file)
+    {
+        $exclude = '.'.$file->getExtension();
+        return $file->getBasename($exclude);
     }
 
     /**
@@ -115,15 +129,19 @@ class ContentFromFileCreator
      */
     protected function determineContentType($filePath)
     {
+        # NOTE: This is flaky. You need to check the actual value of $app['postsDirectory']
         if (false !== stripos($filePath, '/posts/')) {
             return 'post';
         }
 
+        # NOTE: This is flaky. You need to check the actual value of $app['pagesDirectory']
         if (false !== stripos($filePath, '/pages/')) {
             return 'page';
         }
 
         # TODO: Invalid content location exception
+        # This would happen if someone manually called createContentObject on some
+        # file that doesn't live in the pages or posts directory
         $message = "Cannot determine content type from path $filePath. ";
         $message .= 'Expecting content to live inside a "pages" or "posts" directory.';
         throw new \Exception($message);

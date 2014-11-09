@@ -2,7 +2,7 @@
 
 use Symfony\Component\Finder\Finder;
 
-class ContentFileFinder
+class ContentFinder
 {
     /**
      * @var Symfony\Component\Finder\Finder

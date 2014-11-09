@@ -3,23 +3,23 @@
 class Skimpy {
 
     /**
-     * @var Skimpy\ContentFileFinder
+     * @var Skimpy\ContentFinder
      */
-    protected $contentFileFinder;
+    protected $contentFinder;
 
     /**
      * @var array
      */
     protected $validArchiveTypes = ['category', 'tag'];
 
-    public function __construct(ContentFileFinder $contentFileFinder)
+    public function __construct(ContentFinder $contentFinder)
     {
-        $this->contentFileFinder = $contentFileFinder;
+        $this->contentFinder = $contentFinder;
     }
 
     public function find($slug)
     {
-        return $this->contentFileFinder->findByName($slug);
+        return $this->contentFinder->findByName($slug);
     }
 
     public function findPostsInArchive($type, $name)
@@ -31,7 +31,7 @@ class Skimpy {
 
         $attribute = 'category' === $type ? 'categories' : 'tags';
 
-        return $this->contentFileFinder->findPostsContainingAttributeValue($attribute, $name);
+        return $this->contentFinder->findPostsContainingAttributeValue($attribute, $name);
     }
 
     public function archiveNameFromSlug($slug)
