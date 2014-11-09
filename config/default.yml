@@ -2,7 +2,7 @@ site.title: Site title
 site.author: Author Name
 
 # Optional google analytics tracking code
-site.ga_tracking_id: UA-XXXXXXXX-1
+site.ga_tracking_id: 'UA-XXXXXXXX-1'
 
 # A valid PHP timezone
 # http://php.net/manual/en/timezones.php
