@@ -43,24 +43,8 @@ $app->get('/contact', function() use ($app) {
  */
 $app->get('/{archiveType}/{archiveNameSlug}', function($archiveType, $archiveNameSlug) use ($app) {
 
-    $mappings = $app['archive_mappings'];
-
-    # NOTE: I would like to not have this in the routes file,
-    # but I also would like to avoid injecting the $app into the Skimpy class
-    # What to do...?
-    # Maybe create a class just for this stuff?
-    if (isset($mappings[$archiveNameSlug])) {
-        $archiveName = $mappings[$archiveNameSlug];
-    } else {
-        $archiveName = $app['skimpy']->archiveNameFromSlug($archiveNameSlug);
-        # Make sure that a mapped archive name
-        # isn't available at both the mapped slug
-        # and the guessed slug.
-        $flippedMappings = array_flip($mappings);
-        if (isset($flippedMappings[$archiveName])) {
-            $app->abort(404);
-        }
-    }
+    // get the archive
+    die('archive');
 
     $collection = $app['skimpy']->findPostsInArchive($archiveType, $archiveName);
 
