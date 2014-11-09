@@ -12,6 +12,16 @@ class ContentFromFileCreator
     const REQUIRED_METADATA = 'title|date';
 
     /**
+     * @var string
+     */
+    protected $pagesDirectory;
+
+    /**
+     * @var string
+     */
+    protected $postsDirectory;
+
+    /**
      * @var Symfony\Component\Yaml\Parser
      */
     protected $parser;
@@ -21,8 +31,14 @@ class ContentFromFileCreator
      */
     protected $markdown;
 
-    public function __construct(Parser $parser = null, Markdown $markdown = null)
-    {
+    public function __construct(
+        $pagesDirectory,
+        $postsDirectory,
+        Parser $parser = null,
+        Markdown $markdown = null
+    ) {
+        $this->pagesDirectory = $pagesDirectory;
+        $this->postsDirectory = $postsDirectory;
         $this->parser = $parser ?: new Parser;
         $this->markdown = $markdown ?: new Markdown;
     }
@@ -55,7 +71,7 @@ class ContentFromFileCreator
             ->setDisplayableContent($displayableContent)
             ->setExcerpt($this->extractExcerpt($metadata, $displayableContent))
             ->setTemplate($this->determineTemplate($metadata, $file->getRealPath()))
-            ->setType($this->determineContentType($file->getRealPath()));
+            ->setType($this->determineContentType($file->getPath()));
 
         if (false === empty($metadata['categories'])) {
             $content->setCategories($metadata['categories']);
@@ -130,14 +146,12 @@ class ContentFromFileCreator
      */
     protected function determineContentType($filePath)
     {
-        # NOTE: This is flaky. You need to check the actual value of $app['postsDirectory']
-        if (false !== stripos($filePath, '/posts/')) {
-            return 'post';
+        if (realpath($filePath) == realpath($this->pagesDirectory)) {
+            return 'page';
         }
 
-        # NOTE: This is flaky. You need to check the actual value of $app['pagesDirectory']
-        if (false !== stripos($filePath, '/pages/')) {
-            return 'page';
+        if (realpath($filePath) == realpath($this->postsDirectory)) {
+            return 'posts';
         }
 
         # TODO: Invalid content location exception
