@@ -7,7 +7,7 @@ class ContentFromFileCreator implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $creator = new \Skimpy\ContentFromFileCreator($app['path.pages'], $app['path.posts']);
+        $creator = new \Skimpy\ContentFromFileCreator;
         $app['contentFromFileCreator'] = $creator;
     }
 

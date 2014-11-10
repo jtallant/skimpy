@@ -12,16 +12,6 @@ class ContentFromFileCreator
     const REQUIRED_METADATA = 'title|date';
 
     /**
-     * @var string
-     */
-    protected $pagesDirectory;
-
-    /**
-     * @var string
-     */
-    protected $postsDirectory;
-
-    /**
      * @var Symfony\Component\Yaml\Parser
      */
     protected $parser;
@@ -32,13 +22,9 @@ class ContentFromFileCreator
     protected $markdown;
 
     public function __construct(
-        $pagesDirectory,
-        $postsDirectory,
         Parser $parser = null,
         Markdown $markdown = null
     ) {
-        $this->pagesDirectory = $pagesDirectory;
-        $this->postsDirectory = $postsDirectory;
         $this->parser = $parser ?: new Parser;
         $this->markdown = $markdown ?: new Markdown;
     }
@@ -70,7 +56,7 @@ class ContentFromFileCreator
             ->setViewData($viewData)
             ->setDisplayableContent($displayableContent)
             ->setExcerpt($this->extractExcerpt($metadata, $displayableContent))
-            ->setTemplate($this->determineTemplate($metadata, $file->getRealPath()))
+            ->setTemplate($this->determineTemplate($metadata, $file->getPath()))
             ->setType($this->determineContentType($file->getPath()));
 
         if (false === empty($metadata['categories'])) {
@@ -128,17 +114,22 @@ class ContentFromFileCreator
      */
     protected function determineTemplate(array $metadata, $filePath)
     {
-        if (false === empty($metadata['template'])) {
-            # TODO: Check template file exists
-            # or don't and just let twig throw the exception
-            return $metadata['template'];
-        }
+        $metadataContainsTemplate = false === empty($metadata['template']);
+        $template = $metadataContainsTemplate
+            ? $metadata['template']
+            : $this->determineContentType($filePath);
 
-        return $this->determineContentType($filePath);
+        # TODO: MissingTemplateForContentTypeException
+        # if template file doesn't exist
+        # throw exception
+        return $template;
     }
 
     /**
-     * Determines if the content is a page or a post
+     * Determines the content type
+     *
+     * The content type is equal to the name of the direct
+     * parent directory of the file.
      *
      * @param string $filePath
      *
@@ -146,20 +137,7 @@ class ContentFromFileCreator
      */
     protected function determineContentType($filePath)
     {
-        if (realpath($filePath) == realpath($this->pagesDirectory)) {
-            return 'page';
-        }
-
-        if (realpath($filePath) == realpath($this->postsDirectory)) {
-            return 'posts';
-        }
-
-        # TODO: Invalid content location exception
-        # This would happen if someone manually called createContentObject on some
-        # file that doesn't live in the pages or posts directory
-        $message = "Cannot determine content type from path $filePath. ";
-        $message .= 'Expecting content to live inside a "pages" or "posts" directory.';
-        throw new \Exception($message);
+        return basename($filePath);
     }
 
     /**
