@@ -16,4 +16,4 @@
 # environment the app is in, then this does not apply to you.
 #
 # https://github.com/vlucas/phpdotenv
-debug: true
+debug: false

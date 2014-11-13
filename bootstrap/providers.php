@@ -49,4 +49,9 @@ $app->register(new Skimpy\Provider\ContentFinder);
 /**
  * Register Skimpy
  */
+$app->register(new Skimpy\Provider\TaxonomyLoader);
+
+/**
+ * Register Skimpy
+ */
 $app->register(new Skimpy\Provider\Skimpy);

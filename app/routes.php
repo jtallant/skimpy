@@ -41,27 +41,25 @@ $app->get('/contact', function() use ($app) {
  * /category/{category-name-slug}
  * /tag/{tag-name-slug}
  */
-$app->get('/{archiveType}/{archiveNameSlug}', function($archiveType, $archiveNameSlug) use ($app) {
+$app->get('/{taxonomyName}/{slug}', function($taxonomyName, $slug) use ($app) {
 
-    // get the archive
-    die('archive');
+    $collection = $app['skimpy']->findByTaxonomy($taxonomyName, $slug);
+    $collection = $app['skimpy']->findByTaxonomy('category', 'web-development');
 
-    $collection = $app['skimpy']->findPostsInArchive($archiveType, $archiveName);
-
-    if (empty($collection)) {
+    if (is_null($collection) || empty($collection->items())) {
         $app->abort(404);
     }
 
     return $app['twig']->render(
         'archive.twig',
         [
-            'archiveName' => $archiveName,
-            'seotitle'    => $archiveName,
-            'collection'  => $collection
+            'archiveName' => $collection->getName(),
+            'seotitle'    => $collection->getName(),
+            'collection'  => $collection->items()
         ]
     );
 })
-->assert('archiveType', 'category|tag')
+// ->assert('archiveType', 'category|tag')
 ->bind('archive');
 
 /**

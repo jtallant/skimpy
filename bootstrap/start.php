@@ -35,6 +35,8 @@ if (file_exists(__DIR__."/../config/{$app['env']}.yml")) {
 
 require __DIR__.'/providers.php';
 
+$app['taxonomies'] = $app['taxonomyLoader']->load($app['path.base'].'/config/content/taxonomies.yml');
+
 date_default_timezone_set($app['site.timezone']);
 
 require __DIR__.'/../app/routes.php';

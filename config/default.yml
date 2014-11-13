@@ -1,4 +1,5 @@
 site.title: Site title
+site.tagline: Some clever tagline here
 site.author: Author Name
 
 # Optional google analytics tracking code
@@ -13,7 +14,7 @@ site.timezone: America/Chicago
 site.date_format: 'F dS, Y'
 
 # https://support.google.com/webmasters/answer/35624?hl=en#1
-site.meta_content: Content of meta description goes here
+site.meta_description: Content of meta description goes here
 site.admin_email: you@example.com
 
 swiftmailer.options:
