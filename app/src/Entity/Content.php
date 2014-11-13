@@ -31,6 +31,15 @@ class Content
      * @var array
      */
     protected $tags = [];
+    
+    //
+    // protected $taxonomies = [];
+    //
+    // Structure:
+    // ['tags'] => [ContentTaxonomyItem(), ContentTaxonomyItem(), ...]
+    //
+    //
+    
 
     /**
      * @var array
@@ -61,6 +70,34 @@ class Content
      * @var string
      */
     protected $type;
+
+    /**
+     * Get magic method
+     * 
+     * Allows psuedo-public access to properties where a getProperty()
+     * method already exists
+     * 
+     * @return mixed
+     */
+    public function __get($item)
+    {
+        $methodName = 'get' . ucfirst($item);
+        if (function_exists([$this, $methodName])) {
+            return call_user_func($methodName);
+        }
+    }
+    
+    /**
+     * Is proprety existent from a public standpoint outside the class?
+     * 
+     * @return boolean
+     */
+    public function __isset($item)
+    {
+        $methodName = 'get' . ucfirst($item);
+        return method_exists($this, $methodName);
+    }
+    
 
     public function getSlug()
     {
