@@ -20,11 +20,12 @@ based blog that doesn't require any generating.
 ## Features for 1.0 will include:
 * Basic routing to posts and pages
 * Archives (for categories and tags)
+* Related posts
 * Twig templating
 * Out of the box contact form
 
 ## Features for 1.1 will include:
-* CLI for creating posts, pages
+* Pagination
 
 ## Set up
 * Clone this repo

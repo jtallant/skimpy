@@ -3,7 +3,7 @@
     "description": "File based PHP blog",
     "keywords": ["blog"],
     "homepage": "http://github.com/jtallant/skimpy",
-    "license": "MIT",
+    "license": "DBAD",
     "authors": [
         {
             "name": "Justin Tallant",
