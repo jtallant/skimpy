@@ -24,7 +24,8 @@ swiftmailer.options:
   encryption:
   auth_mode:
 
-path.pages: %path.base%/content/page
-path.posts: %path.base%/content/post
+path.content: %path.base%/content
+# path.pages: %path.base%/content/page
+# path.posts: %path.base%/content/post
 
 debug: false

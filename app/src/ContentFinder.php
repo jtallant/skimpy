@@ -17,31 +17,20 @@ class ContentFinder
     /**
      * @var string
      */
-    protected $pagesDirectory;
-
-    /**
-     * @var string
-     */
-    protected $postsDirectory;
+    protected $contentPath;
 
     public function __construct(
         Finder $finder,
         ContentFromFileCreator $contentFromFileCreator,
-        $pagesDirectory,
-        $postsDirectory
+        $contentPath
     ) {
-        if (false === is_readable($pagesDirectory)) {
-            throw new \Exception("Could not read from the pages directory $pagesDirectory");
-        }
-
-        if (false === is_readable($postsDirectory)) {
-            throw new \Exception("Could not read from the posts directory $postsDirectory");
+        if (false === is_readable($contentPath)) {
+            throw new \Exception("Could not read from the content directory $contentPath");
         }
 
         $this->finder = $finder;
         $this->contentFromFileCreator = $contentFromFileCreator;
-        $this->pagesDirectory = $pagesDirectory;
-        $this->postsDirectory = $postsDirectory;
+        $this->contentPath = $contentPath;
     }
 
     /**
@@ -55,7 +44,7 @@ class ContentFinder
     {
         $files = $this->finder
             ->files()
-            ->in([$this->pagesDirectory, $this->postsDirectory])
+            ->in($this->contentPath)
             ->name($name.'.*');
 
         if (empty($files->count())) {
@@ -65,7 +54,7 @@ class ContentFinder
         if ($files->count() > 1) {
             # TODO: DuplicateContentFileNameException
             # List the file paths of the duplicates
-            throw new \Exception("You can't have pages and posts with the same name.");
+            throw new \Exception("All content files must have a unique name.");
         }
 
         foreach ($files as $f) {
@@ -77,7 +66,7 @@ class ContentFinder
     {
         $files = $this->finder
             ->files()
-            ->in($this->postsDirectory);
+            ->in($this->contentPath);
 
         $getAttributeValue = $this->getGetterMethodForAttribute($attribute);
         $posts = [];
@@ -100,15 +89,16 @@ class ContentFinder
 
     protected function getGetterMethodForAttribute($attribute)
     {
-        $refClass = new \ReflectionClass("\Skimpy\Content");
+        $refClass = new \ReflectionClass("\Skimpy\Entity\Content");
         $methods = $refClass->getMethods();
         foreach ($methods as $m) {
+            # TODO: Just remove the get on the method names
             $isGetter = 'get' === substr($m->name, 0, 3);
             $getterContainsAttribute = false !== stripos($m->name, $attribute);
             if ($isGetter && $getterContainsAttribute) {
                 return $m->name;
             }
         }
-        throw new \Exception("\Skimpy\Content has no getter method for attribute '$attribute'.");
+        throw new \Exception("\Skimpy\Entity\Content has no getter method for attribute '$attribute'.");
     }
 }
