@@ -3,7 +3,7 @@
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
 use Michelf\Markdown;
-use Skimpy\Entity\Content;
+use Skimpy\Entity\ContentItem;
 
 class ContentFromFileCreator
 {
@@ -12,15 +12,21 @@ class ContentFromFileCreator
     const REQUIRED_METADATA = 'title|date';
 
     /**
-     * @var Symfony\Component\Yaml\Parser
+     * @var Parser
      */
     protected $parser;
 
     /**
-     * @var Michelf\Markdown
+     * @var Markdown
      */
     protected $markdown;
 
+    /**
+     * Constructor
+     *
+     * @param Parser   $parser
+     * @param Markdown $markdown
+     */
     public function __construct(
         Parser $parser = null,
         Markdown $markdown = null
@@ -30,11 +36,11 @@ class ContentFromFileCreator
     }
 
     /**
-     * Takes file data and returns a Content object
+     * Takes file data and returns a ContentItem object
      *
      * @param SplFileInfo $file
      *
-     * @return \Skimpy\Content
+     * @return Entity\ContentItem
      */
     public function createContentObject(SplFileInfo $file)
     {
@@ -46,7 +52,7 @@ class ContentFromFileCreator
         $viewData = $metadata;
         $viewData['content'] = $displayableContent;
 
-        $content = new Content;
+        $content = new ContentItem;
         $content
             ->setSlug($this->extractSlug($file))
             ->setTitle($metadata['title'])
@@ -54,7 +60,7 @@ class ContentFromFileCreator
             ->setDate($metadata['date'])
             ->setMetadata($metadata)
             ->setViewData($viewData)
-            ->setDisplayableContent($displayableContent)
+            ->setContent($displayableContent)
             ->setExcerpt($this->extractExcerpt($metadata, $displayableContent))
             ->setTemplate($this->determineTemplate($metadata, $file->getPath()))
             ->setType($this->determineContentType($file->getPath()));
@@ -105,7 +111,7 @@ class ContentFromFileCreator
      * The template defaults to whatever content type of
      * the content is (page or post).
      *
-     * The template can be overriden in the metadata.
+     * The template can be overridden in the metadata.
      *
      * @param array  $metadata
      * @param string $filePath

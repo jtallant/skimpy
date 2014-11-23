@@ -3,10 +3,15 @@
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-class ContentFinder implements ServiceProviderInterface
+/**
+ * Class ContentRepository
+ *
+ * @package Skimpy\Provider
+ */
+class ContentRepository implements ServiceProviderInterface
 {
     /**
-     * @param Application $app
+     * {@inheritdoc}
      *
      * @throws \Exception
      */
@@ -20,15 +25,16 @@ class ContentFinder implements ServiceProviderInterface
             throw new \Exception('The '.$app['path.content'].' is not readable');
         }
 
-        $contentFinder = new \Skimpy\ContentFinder(
-            $app['finder'],
-            $app['contentFromFileCreator'],
+        $app['skimpy.repository.content'] = new \Skimpy\Repository\ContentRepository(
+            $app['skimpy.finder'],
+            $app['skimpy.contentFromFileCreator'],
             $app['path.content']
         );
-
-        $app['contentFinder'] = $contentFinder;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot(Application $app)
     {
 

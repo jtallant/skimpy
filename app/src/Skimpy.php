@@ -1,37 +1,50 @@
 <?php namespace Skimpy;
 
+use Skimpy\Contracts\RepositoryInterface;
+
+/**
+ * Class Skimpy
+ *
+ * @package Skimpy
+ */
 class Skimpy {
 
     /**
-     * @var Skimpy\ContentFinder
+     * @var RepositoryInterface
      */
-    protected $contentFinder;
+    protected $contentRepository;
 
     /**
-     * @var array
+     * Constructor
+     *
+     * @param RepositoryInterface $contentRepository
      */
-    # TODO: Pass this in from the registered taxonomies
-    protected $validArchiveTypes = ['category', 'tag'];
-
-    public function __construct(ContentFinder $contentFinder)
+    public function __construct(RepositoryInterface $contentRepository)
     {
-        $this->contentFinder = $contentFinder;
+        $this->contentRepository = $contentRepository;
     }
 
+    /**
+     * Find ContentItem by slug
+     *
+     * @param $slug
+     *
+     * @return mixed
+     */
     public function find($slug)
     {
-        return $this->contentFinder->findByName($slug);
+        return $this->contentRepository->findBy(['slug' => $slug]);
     }
 
-    public function findByTaxonomy($type, $name)
+    /**
+     * Finds content by criteria
+     *
+     * @param array $criteria
+     *
+     * @return null|Entity\ContentItem
+     */
+    public function findBy(array $criteria)
     {
-        if (false === in_array($type, $this->validArchiveTypes)) {
-            $validTypes = join(', ', $this->validArchiveTypes);
-            throw new \Exception("Invalid archive type $type. Valid types include $validTypes");
-        }
-
-        $attribute = 'category' === $type ? 'categories' : 'tags';
-
-        return $this->contentFinder->findPostsContainingAttributeValue($attribute, $name);
+        return $this->contentRepository->findBy($criteria);
     }
 }

@@ -1,7 +1,8 @@
 -
-  name: categories
-  singular_name: category
-  mappings:
+  name: Category
+  plural_name: Categories
+  slug: categories
+  terms:
     -
       name: Web Development
       slug: web-development
@@ -12,9 +13,10 @@
       name: foo BAR baz
       slug: foo-bar-baz
 -
-  name: tags
-  singular_name: tag
-  mappings:
+  name: Tag
+  plural_name: Tags
+  slug: tags
+  terms:
     -
       name: Tag 1
       slug: tag-1

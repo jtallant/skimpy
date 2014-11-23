@@ -3,14 +3,24 @@
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
+/**
+ * Class ContentFromFileCreator
+ *
+ * @package Skimpy\Provider
+ */
 class ContentFromFileCreator implements ServiceProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function register(Application $app)
     {
-        $creator = new \Skimpy\ContentFromFileCreator;
-        $app['contentFromFileCreator'] = $creator;
+        $app['skimpy.contentFromFileCreator'] = new \Skimpy\ContentFromFileCreator;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot(Application $app)
     {
     }

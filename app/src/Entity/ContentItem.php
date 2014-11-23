@@ -1,13 +1,14 @@
 <?php namespace Skimpy\Entity;
 
 use DateTime;
+use Skimpy\Behavior\ReadableProperties;
 
 /**
- * Class Content
+ * Class ContentItem
  *
  * @package Skimpy\Entity
  */
-class Content
+class ContentItem
 {
     /**
      * @var string
@@ -52,7 +53,7 @@ class Content
     /**
      * @var string
      */
-    protected $displayableContent;
+    protected $content;
 
     /**
      * @var string
@@ -70,6 +71,13 @@ class Content
     protected $type;
 
     /**
+     * Makes properties with public getters publicly readable
+     */
+    use ReadableProperties;
+
+    /**
+     * Returns the slug
+     *
      * @return string
      */
     public function getSlug()
@@ -270,9 +278,9 @@ class Content
      *
      * @return string
      */
-    public function getDisplayableContent()
+    public function getContent()
     {
-        return $this->displayableContent;
+        return $this->content;
     }
 
     /**
@@ -282,9 +290,9 @@ class Content
      *
      * @return $this
      */
-    public function setDisplayableContent($displayableContent)
+    public function setContent($displayableContent)
     {
-        $this->displayableContent = $displayableContent;
+        $this->content = $displayableContent;
         return $this;
     }
 

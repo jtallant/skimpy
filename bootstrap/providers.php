@@ -16,7 +16,7 @@ $app->register(new Silex\Provider\HttpCacheServiceProvider, [
  */
 $app->register(
     new Silex\Provider\TwigServiceProvider,
-    ['twig.path' => __DIR__.'/../views']
+    ['twig.path' => __DIR__.'/../templates']
 );
 
 /**
@@ -42,14 +42,9 @@ $app->register(new Skimpy\Provider\ContentFromFileCreator);
 $app->register(new Skimpy\Provider\Finder);
 
 /**
- * Register the ContentFinder
+ * Register the ContentRepository
  */
-$app->register(new Skimpy\Provider\ContentFinder);
-
-/**
- * Register Skimpy
- */
-$app->register(new Skimpy\Provider\TaxonomyLoader);
+$app->register(new Skimpy\Provider\ContentRepository);
 
 /**
  * Register Skimpy

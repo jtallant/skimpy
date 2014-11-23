@@ -35,7 +35,11 @@ if (file_exists(__DIR__."/../config/{$app['env']}.yml")) {
 
 require __DIR__.'/providers.php';
 
-$app['taxonomies'] = $app['taxonomyLoader']->load($app['path.base'].'/config/content/taxonomies.yml');
+$app['content_types'] = [];
+
+if (file_exists($app['path.base'].'/config/content/taxonomies.yml')) {
+    $app['content_types'] = Symfony\Component\Yaml\Yaml::parse($app['path.base'].'/config/content/types.yml');
+}
 
 date_default_timezone_set($app['site.timezone']);
 

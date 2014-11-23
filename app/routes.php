@@ -3,10 +3,9 @@
  * Routes
  */
 
-use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Skimpy\ContentFinder;
 
 /**
  * Home page
@@ -38,13 +37,22 @@ $app->get('/contact', function() use ($app) {
 /**
  * Render category or tag archive
  *
+ * Examples URIs:
  * /category/{category-name-slug}
  * /tag/{tag-name-slug}
  */
 $app->get('/{taxonomyName}/{slug}', function($taxonomyName, $slug) use ($app) {
 
-    $collection = $app['skimpy']->findByTaxonomy($taxonomyName, $slug);
-    $collection = $app['skimpy']->findByTaxonomy('category', 'web-development');
+    $criteria = [
+        'tag' => 'tag1'
+    ];
+
+    $content = $app['skimpy']->findBy($criteria);
+
+    dd($content);
+//    $collection = $contentRepo->findByTaxonomy($taxonomyName, $slug);
+//    $collection = $app['skimpy']->findByTaxonomy('category', 'web-development');
+    $collection = $app['skimpy']->findBy(["$taxonomyName" => $slug]);
 
     if (is_null($collection) || empty($collection->items())) {
         $app->abort(404);
@@ -69,10 +77,6 @@ $app->get('/{slug}', function($slug) use ($app) {
 
     $content = $app['skimpy']->find($slug);
 
-    if (is_null($content)) {
-        $app->abort(404);
-    }
-
     return $app['twig']->render(
         $content->getTemplate().'.twig',
         $content->getViewData()
@@ -87,6 +91,7 @@ $app->error(function(HttpException $e, $code) use ($app) {
     if (404 != $code) {
         return;
     }
+
     return new Response(
         $app['twig']->render(
             '404.twig',
