@@ -1,6 +1,12 @@
 <?php namespace Skimpy\Entity;
 
-# A thing like a category, tag, product-type, genre
+/**
+ * Class Taxonomy
+ *
+ * category, tag, product-type, etc
+ *
+ * @package Skimpy\Entity
+ */
 class Taxonomy
 {
     /**
@@ -9,7 +15,7 @@ class Taxonomy
     protected $name;
 
     /**
-     * @var slug
+     * @var string
      */
     protected $slug;
 
@@ -28,7 +34,7 @@ class Taxonomy
      *
      * @param string
      *
-     * @return Skimpy\Entity\Taxonomy
+     * @return $this
      */
     public function setName($name)
     {
@@ -49,9 +55,9 @@ class Taxonomy
     /**
      * Set slug
      *
-     * @param string slug
+     * @param string $slug
      *
-     * @return Skimpy\Entity\Taxonomy
+     * @return $this
      */
     public function setSlug($slug)
     {

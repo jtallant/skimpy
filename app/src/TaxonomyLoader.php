@@ -5,10 +5,13 @@ use Symfony\Component\Yaml\Parser;
 class TaxonomyLoader
 {
     /**
-     * @var Symfony\Component\Yaml\Parser
+     * @var Parser
      */
     protected $parser;
 
+    /**
+     * @param Parser $parser
+     */
     public function __construct(Parser $parser = null)
     {
         $this->parser = $parser ?: new Parser;

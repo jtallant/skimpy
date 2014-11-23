@@ -5,10 +5,13 @@ use Silex\ServiceProviderInterface;
 
 class ContentFinder implements ServiceProviderInterface
 {
+    /**
+     * @param Application $app
+     *
+     * @throws \Exception
+     */
     public function register(Application $app)
     {
-        # TODO: Clean up
-        # Config should be validated elsewhere
         if (false === isset($app['path.content'])) {
             throw new \Exception('The path.content config is missing.');
         }
