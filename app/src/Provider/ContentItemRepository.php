@@ -4,11 +4,11 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 /**
- * Class ContentRepository
+ * Class ContentItemRepository
  *
  * @package Skimpy\Provider
  */
-class ContentRepository implements ServiceProviderInterface
+class ContentItemRepository implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class ContentRepository implements ServiceProviderInterface
             throw new \Exception('The '.$app['path.content'].' is not readable');
         }
 
-        $app['skimpy.repository.content'] = new \Skimpy\Repository\ContentRepository(
+        $app['skimpy.repository.content'] = new \Skimpy\Repository\ContentItemRepository(
             $app['skimpy.finder'],
             $app['skimpy.contentFromFileCreator'],
             $app['path.content']

@@ -37,7 +37,7 @@ require __DIR__.'/providers.php';
 
 $app['content_types'] = [];
 
-if (file_exists($app['path.base'].'/config/content/taxonomies.yml')) {
+if (file_exists($app['path.base'].'/config/content/types.yml')) {
     $app['content_types'] = Symfony\Component\Yaml\Yaml::parse($app['path.base'].'/config/content/types.yml');
 }
 

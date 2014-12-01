@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-// use Skimpy\ContentRepository;
+// use Skimpy\ContentItemRepository;
 // use Skimpy\ContentFromFileCreator;
 // use Symfony\Component\Finder\Finder;
 

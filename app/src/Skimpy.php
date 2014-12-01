@@ -1,25 +1,25 @@
 <?php namespace Skimpy;
 
-use Skimpy\Contracts\RepositoryInterface;
+use Skimpy\Contracts\ObjectRepository;
 
 /**
  * Class Skimpy
  *
  * @package Skimpy
  */
-class Skimpy {
-
+class Skimpy
+{
     /**
-     * @var RepositoryInterface
+     * @var ObjectRepository
      */
     protected $contentRepository;
 
     /**
      * Constructor
      *
-     * @param RepositoryInterface $contentRepository
+     * @param ObjectRepository $contentRepository
      */
-    public function __construct(RepositoryInterface $contentRepository)
+    public function __construct(ObjectRepository $contentRepository)
     {
         $this->contentRepository = $contentRepository;
     }
@@ -33,7 +33,7 @@ class Skimpy {
      */
     public function find($slug)
     {
-        return $this->contentRepository->findBy(['slug' => $slug]);
+        return $this->contentRepository->findOneBy(['slug' => $slug]);
     }
 
     /**

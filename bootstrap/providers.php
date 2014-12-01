@@ -3,7 +3,7 @@
 /**
  * Register the HttpCacheServiceProvider
  *
- * http://silex.sensiolabs.org/doc/providers/http_cache.html
+ * @link http://silex.sensiolabs.org/doc/providers/http_cache.html
  */
 $app->register(new Silex\Provider\HttpCacheServiceProvider, [
     'http_cache.cache_dir' => __DIR__.'/../app/cache/',
@@ -12,7 +12,7 @@ $app->register(new Silex\Provider\HttpCacheServiceProvider, [
 /**
  * Register the TwigServiceProvider
  *
- * http://silex.sensiolabs.org/doc/providers/twig.html
+ * @link http://silex.sensiolabs.org/doc/providers/twig.html
  */
 $app->register(
     new Silex\Provider\TwigServiceProvider,
@@ -27,7 +27,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 /**
  * Register the SwiftmailerServiceProvider
  *
- * http://silex.sensiolabs.org/doc/providers/swiftmailer.html
+ * @link http://silex.sensiolabs.org/doc/providers/swiftmailer.html
  */
 $app->register(new Silex\Provider\SwiftmailerServiceProvider);
 
@@ -42,9 +42,9 @@ $app->register(new Skimpy\Provider\ContentFromFileCreator);
 $app->register(new Skimpy\Provider\Finder);
 
 /**
- * Register the ContentRepository
+ * Register the ContentItemRepository
  */
-$app->register(new Skimpy\Provider\ContentRepository);
+$app->register(new Skimpy\Provider\ContentItemRepository);
 
 /**
  * Register Skimpy

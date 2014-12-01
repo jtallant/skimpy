@@ -1,7 +1,7 @@
 -
   name: Category
   plural_name: Categories
-  slug: categories
+  slug: category
   terms:
     -
       name: Web Development
@@ -15,7 +15,7 @@
 -
   name: Tag
   plural_name: Tags
-  slug: tags
+  slug: tag
   terms:
     -
       name: Tag 1

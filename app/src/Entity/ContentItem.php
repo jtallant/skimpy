@@ -33,16 +33,6 @@ class ContentItem
     /**
      * @var array
      */
-    protected $categories = [];
-
-    /**
-     * @var array
-     */
-    protected $tags = [];
-
-    /**
-     * @var array
-     */
     protected $metadata = [];
 
     /**
@@ -128,7 +118,7 @@ class ContentItem
      */
     public function getSeotitle()
     {
-        return $this->seotitle;
+        return $this->seoTitle;
     }
 
     /**
@@ -164,66 +154,6 @@ class ContentItem
     public function setDate(DateTime $date)
     {
         $this->date = $date;
-        return $this;
-    }
-
-    /**
-     * Returns the categories
-     *
-     * @return array
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Sets the categories
-     *
-     * @param $categories
-     *
-     * @return $this
-     * @throws \Exception
-     */
-    public function setCategories($categories)
-    {
-        if (is_array($categories)) {
-            $this->categories = $categories;
-        } elseif (is_string($categories)) {
-            $this->categories = array_map('trim', explode(',', $categories));
-        } else {
-            throw new \Exception('Invalid value for categories');
-        }
-        return $this;
-    }
-
-    /**
-     * Returns the tags
-     *
-     * @return array
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Sets the tags
-     *
-     * @param $tags
-     *
-     * @return $this
-     * @throws \Exception
-     */
-    public function setTags($tags)
-    {
-        if (is_array($tags)) {
-            $this->tags = $tags;
-        } elseif (is_string($tags)) {
-            $this->tags = array_map('trim', explode(',', $tags));
-        } else {
-            throw new \Exception('Invalid value for tags');
-        }
         return $this;
     }
 
@@ -362,6 +292,25 @@ class ContentItem
     public function setType($type)
     {
         $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Sets extra properties on the object
+     *
+     * Keys will be used as property name, values as values
+     *
+     * @param array $properties
+     *
+     * @return $this
+     */
+    public function setExtraProperties(array $properties)
+    {
+        foreach ($properties as $prop => $value) {
+            if (false === isset($this->$prop)) {
+                $this->$prop = $value;
+            }
+        }
         return $this;
     }
 }

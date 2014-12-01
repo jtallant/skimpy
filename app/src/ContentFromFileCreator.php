@@ -63,15 +63,8 @@ class ContentFromFileCreator
             ->setContent($displayableContent)
             ->setExcerpt($this->extractExcerpt($metadata, $displayableContent))
             ->setTemplate($this->determineTemplate($metadata, $file->getPath()))
-            ->setType($this->determineContentType($file->getPath()));
-
-        if (false === empty($metadata['categories'])) {
-            $content->setCategories($metadata['categories']);
-        }
-
-        if (false === empty($metadata['tags'])) {
-            $content->setTags($metadata['tags']);
-        }
+            ->setType($this->determineContentType($file->getPath()))
+            ->setExtraProperties($metadata);
 
         return $content;
     }

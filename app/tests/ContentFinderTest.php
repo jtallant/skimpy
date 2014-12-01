@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Skimpy\Repository\ContentRepository;
+use Skimpy\Repository\ContentItemRepository;
 use Skimpy\ContentFromFileCreator;
 use Symfony\Component\Finder\Finder;
 
@@ -26,7 +26,7 @@ class ContentFinderTest extends \PHPUnit_Framework_TestCase
 
         $contentFromFileCreator = m::mock(new ContentFromFileCreator);
         $contentPath = __DIR__.'/stubs/content';
-        $contentFinder = new ContentRepository($finder, $contentFromFileCreator, $contentPath);
+        $contentFinder = new ContentItemRepository($finder, $contentFromFileCreator, $contentPath);
         $result = $contentFinder->findByName('non-existant-file.md');
         $this->assertNull($result);
     }
@@ -36,7 +36,7 @@ class ContentFinderTest extends \PHPUnit_Framework_TestCase
     {
         $contentFromFileCreator = m::mock(new ContentFromFileCreator);
         $contentFromFileCreator->shouldReceive('createContentObject')->once();
-        $contentFinder = new ContentRepository(new Finder, $contentFromFileCreator, __DIR__.'/stubs/content');
+        $contentFinder = new ContentItemRepository(new Finder, $contentFromFileCreator, __DIR__.'/stubs/content');
         $contentFinder->findByName('example-post');
     }
 }
