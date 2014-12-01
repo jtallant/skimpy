@@ -1,8 +1,8 @@
 title:      Foo
 date:       2015-05-18
 seotitle:   foo
-categories: Unix
-tags:       Tag1, Tag2
+categories: [Unix]
+tags:       [Tag1, Tag2]
 ----------
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

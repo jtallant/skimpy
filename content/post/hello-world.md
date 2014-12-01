@@ -1,8 +1,8 @@
 title:      Hello World
 date:       2015-05-16
 seotitle:   Hello World
-categories: Example Category, Web Development
-tags:       Tag1, Tag2 # can use array or string
+categories: [Example Category, Web Development]
+tags:       [Tag1, Tag2]
 template:   post
 ----------
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

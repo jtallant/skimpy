@@ -1,8 +1,8 @@
 title:      Bar
 date:       2015-05-20
 seotitle:   bar
-categories: Unix
-tags:       Tag1
+categories: [Unix]
+tags:       [Tag1]
 ----------
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
