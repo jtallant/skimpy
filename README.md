@@ -1,5 +1,7 @@
 # Skimpy
 
+[![Code Climate](https://codeclimate.com/github/jtallant/skimpy/badges/gpa.svg)](https://codeclimate.com/github/jtallant/skimpy)
+
 **This project is in the very early stages of development. It is not ready to use.**
 
 Skimpy is a file based blog that doesn't require any generating.
