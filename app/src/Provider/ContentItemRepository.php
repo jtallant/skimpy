@@ -27,7 +27,6 @@ class ContentItemRepository implements ServiceProviderInterface
 
         $app['skimpy.repository.content'] = $app->share(function($app) {
             return new \Skimpy\Repository\ContentItemRepository(
-                new \Symfony\Component\Finder\Finder,
                 new \Skimpy\Service\ContentFromFileCreator,
                 $app['path.content']
             );

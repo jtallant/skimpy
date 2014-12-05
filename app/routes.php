@@ -75,7 +75,11 @@ $app->get('/{taxonomyName}/{slug}', function($taxonomyName, $slug) use ($app) {
  */
 $app->get('/{slug}', function($slug) use ($app) {
 
-    $content = $app['skimpy']->find($slug);
+    $content = $app['skimpy']->findBySlug($slug);
+
+    if (is_null($content)) {
+        $app->abort(404);
+    }
 
     return $app['twig']->render(
         $content->getTemplate().'.twig',
@@ -88,7 +92,7 @@ $app->get('/{slug}', function($slug) use ($app) {
  * Handle 404 errors
  */
 $app->error(function(HttpException $e, $code) use ($app) {
-    if (404 != $code) {
+    if (404 !== $code) {
         return;
     }
 

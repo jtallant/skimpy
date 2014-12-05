@@ -8,11 +8,6 @@ use Skimpy\Entity\ContentItem;
 class ContentItemRepository implements ObjectRepository
 {
     /**
-     * @var Finder
-     */
-    protected $finder;
-
-    /**
      * @var ContentFromFileCreator
      */
     protected $contentFromFileCreator;
@@ -37,7 +32,6 @@ class ContentItemRepository implements ObjectRepository
      * @throws \Exception
      */
     public function __construct(
-        Finder $finder,
         ContentFromFileCreator $contentFromFileCreator,
         $contentPath
     ) {
@@ -46,7 +40,6 @@ class ContentItemRepository implements ObjectRepository
             throw new \Exception("Could not read from the content directory $contentPath");
         }
 
-        $this->finder = $finder;
         $this->contentFromFileCreator = $contentFromFileCreator;
         $this->contentPath = $contentPath;
     }
@@ -75,8 +68,8 @@ class ContentItemRepository implements ObjectRepository
             if ($this->contentContainsAllCriteria($content, $criteria)) {
                 $objects[] = $content;
             }
-       }
-       return $objects;
+        }
+        return $this->sorter->sortItems($objects, $orderBy, $limit, $offset);
     }
 
     /**
@@ -133,6 +126,6 @@ class ContentItemRepository implements ObjectRepository
      */
     protected function getContentFiles()
     {
-        return $this->finder->files()->in($this->contentPath);
+        return (new Finder)->in($this->contentPath)->files();
     }
 }

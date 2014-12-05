@@ -26,26 +26,40 @@ class Skimpy
     }
 
     /**
-     * Find ContentItem by slug
+     * Finds a ContentItem by slug
      *
      * @param $slug
      *
      * @return mixed
      */
-    public function find($slug)
+    public function findBySlug($slug)
     {
         return $this->contentRepository->findOneBy(['slug' => $slug]);
     }
 
     /**
-     * Finds content by criteria
+     * Returns an array of ContentItems matching criteria
      *
      * @param array $criteria
+     * @param array $orderBy
+     * @param null  $limit
+     * @param null  $offset
      *
-     * @return ContentItem
+     * @return array
      */
-    public function findBy(array $criteria)
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->contentRepository->findBy($criteria);
+        return $this->contentRepository->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    /**
+     * @param string $contentTypeSlug
+     * @param string $termSlug
+     *
+     * @return array
+     */
+    public function getArchive($contentTypeSlug, $termSlug)
+    {
+        return [];
     }
 }
