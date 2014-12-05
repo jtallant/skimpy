@@ -1,10 +1,12 @@
 <?php namespace Skimpy\Service;
 
 use Skimpy\Contracts\ObjectRepository;
-use Skimpy\Entity\ContentItem;
 
 /**
  * Class Skimpy
+ *
+ * This class is just a wrapper around the repositories.
+ * It only exists to simplify the API.
  *
  * @package Skimpy
  */

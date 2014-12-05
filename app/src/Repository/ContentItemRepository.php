@@ -2,20 +2,21 @@
 
 use Symfony\Component\Finder\Finder;
 use Skimpy\Contracts\ObjectRepository;
-use Skimpy\Service\ContentFromFileCreator;
 use Skimpy\Entity\ContentItem;
+use Skimpy\Service\ContentFromFileCreator;
+use Skimpy\Support\SortedCollection;
 
+/**
+ * Class ContentItemRepository
+ *
+ * @package Skimpy\Repository
+ */
 class ContentItemRepository implements ObjectRepository
 {
     /**
      * @var ContentFromFileCreator
      */
     protected $contentFromFileCreator;
-
-    /**
-     * @var Sorter
-     */
-    protected $sorter;
 
     /**
      * @var string
@@ -69,7 +70,7 @@ class ContentItemRepository implements ObjectRepository
                 $objects[] = $content;
             }
         }
-        return $this->sorter->sortItems($objects, $orderBy, $limit, $offset);
+        return (new SortedCollection($objects, $orderBy, $limit, $offset))->toArray();
     }
 
     /**
