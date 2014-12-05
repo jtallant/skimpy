@@ -1,6 +1,6 @@
 <?php namespace Skimpy\Support;
 
-use Illuminate\Support\Collection;
+use AgnosticPhp\Support\Collection;
 
 /**
  * Class SortedCollection
