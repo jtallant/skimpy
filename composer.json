@@ -33,9 +33,6 @@
         "mockery/mockery": "0.9.*@dev"
     },
     "autoload": {
-        "psr-4": {"Skimpy\\": "app/src/"},
-        "files": [
-            "app/src/helpers.php"
-        ]
+        "psr-4": {"Skimpy\\": "app/src/"}
     }
 }
