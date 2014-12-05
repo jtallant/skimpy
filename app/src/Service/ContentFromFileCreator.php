@@ -1,4 +1,4 @@
-<?php namespace Skimpy;
+<?php namespace Skimpy\Service;
 
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
@@ -40,7 +40,7 @@ class ContentFromFileCreator
      *
      * @param SplFileInfo $file
      *
-     * @return Entity\ContentItem
+     * @return ContentItem
      */
     public function createContentObject(SplFileInfo $file)
     {

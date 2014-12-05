@@ -1,6 +1,7 @@
-<?php namespace Skimpy;
+<?php namespace Skimpy\Service;
 
 use Skimpy\Contracts\ObjectRepository;
+use Skimpy\Entity\ContentItem;
 
 /**
  * Class Skimpy
@@ -41,7 +42,7 @@ class Skimpy
      *
      * @param array $criteria
      *
-     * @return null|Entity\ContentItem
+     * @return ContentItem
      */
     public function findBy(array $criteria)
     {

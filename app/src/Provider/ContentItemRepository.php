@@ -22,14 +22,16 @@ class ContentItemRepository implements ServiceProviderInterface
         }
 
         if (false === is_readable($app['path.content'])) {
-            throw new \Exception('The '.$app['path.content'].' is not readable');
+            throw new \Exception('The '.$app['path.content'].' directory is not readable');
         }
 
-        $app['skimpy.repository.content'] = new \Skimpy\Repository\ContentItemRepository(
-            $app['skimpy.finder'],
-            $app['skimpy.contentFromFileCreator'],
-            $app['path.content']
-        );
+        $app['skimpy.repository.content'] = $app->share(function($app) {
+            return new \Skimpy\Repository\ContentItemRepository(
+                new \Symfony\Component\Finder\Finder,
+                new \Skimpy\Service\ContentFromFileCreator,
+                $app['path.content']
+            );
+        });
     }
 
     /**

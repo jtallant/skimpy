@@ -15,7 +15,9 @@ class Skimpy implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['skimpy'] = new \Skimpy\Skimpy($app['skimpy.repository.content']);
+        $app['skimpy'] = $app->share(function($app) {
+            return new \Skimpy\Service\Skimpy($app['skimpy.repository.content']);
+        });
     }
 
     /**

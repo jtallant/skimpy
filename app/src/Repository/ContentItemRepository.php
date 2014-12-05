@@ -2,7 +2,7 @@
 
 use Symfony\Component\Finder\Finder;
 use Skimpy\Contracts\ObjectRepository;
-use Skimpy\ContentFromFileCreator;
+use Skimpy\Service\ContentFromFileCreator;
 use Skimpy\Entity\ContentItem;
 
 class ContentItemRepository implements ObjectRepository
@@ -16,6 +16,11 @@ class ContentItemRepository implements ObjectRepository
      * @var ContentFromFileCreator
      */
     protected $contentFromFileCreator;
+
+    /**
+     * @var Sorter
+     */
+    protected $sorter;
 
     /**
      * @var string
@@ -62,7 +67,7 @@ class ContentItemRepository implements ObjectRepository
     /**
      * {@inheritdoc}
      */
-    public function findBy(array $criteria)
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         $objects = [];
         foreach ($this->getContentFiles() as $f) {

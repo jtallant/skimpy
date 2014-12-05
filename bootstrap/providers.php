@@ -32,16 +32,6 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 $app->register(new Silex\Provider\SwiftmailerServiceProvider);
 
 /**
- * Register the ContentFromFileCreator
- */
-$app->register(new Skimpy\Provider\ContentFromFileCreator);
-
-/**
- * Register the Finder
- */
-$app->register(new Skimpy\Provider\Finder);
-
-/**
  * Register the ContentItemRepository
  */
 $app->register(new Skimpy\Provider\ContentItemRepository);
