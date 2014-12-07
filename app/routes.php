@@ -6,17 +6,18 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use AgnosticPhp\Support\Collection;
 
 /**
  * Home page
  */
 $app->get('/', function() use ($app) {
-    return $app['twig']->render(
-        'home.twig',
-        [
-            'seotitle' => $app['site.title']
-        ]
-    );
+
+    $data = [
+        'seotitle' => $app['site.title']
+    ];
+
+    return $app->render('home.twig', $data);
 })
 ->bind('home');
 
@@ -24,13 +25,13 @@ $app->get('/', function() use ($app) {
  * Render contact form
  */
 $app->get('/contact', function() use ($app) {
-    return $app['twig']->render(
-        'contact.twig',
-        [
-            'title'    => 'Contact',
-            'seotitle' => 'Contact'
-        ]
-    );
+
+    $data = [
+        'title' => 'Contact',
+        'seotitle' => 'Contact'
+    ];
+
+    return $app->render('contact.twig', $data);
 })
 ->bind('contact');
 
@@ -92,6 +93,7 @@ $app->get('/{slug}', function($slug) use ($app) {
  * Handle 404 errors
  */
 $app->error(function(HttpException $e, $code) use ($app) {
+
     if (404 !== $code) {
         return;
     }

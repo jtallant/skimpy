@@ -1,5 +1,21 @@
 <?php
 
+if ($app['http_cache.enabled']) {
+    /**
+     * Register the HttpCacheServiceProvider
+     *
+     * @link http://silex.sensiolabs.org/doc/providers/http_cache.html
+     */
+    $app->register(new Silex\Provider\HttpCacheServiceProvider, [
+        'http_cache.cache_dir' => $app['path.base'].'/cache/http',
+        'http_cache.esi'       => null,
+        'http_cache.options'   => [
+            'debug'            => $app['debug'],
+            'default_ttl'      => (int) $app['http_cache.default_ttl']
+        ]
+    ]);
+}
+
 /**
  * Register the TwigServiceProvider
  *
@@ -7,7 +23,13 @@
  */
 $app->register(
     new Silex\Provider\TwigServiceProvider,
-    ['twig.path' => __DIR__.'/../templates']
+    [
+        'twig.path' => $app['path.base'].'/templates',
+        'twig.options' => [
+            'debug' => $app['debug'],
+            'cache' => $app['path.base'].'/cache/templates'
+        ]
+    ]
 );
 
 /**

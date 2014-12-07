@@ -26,7 +26,8 @@ swiftmailer.options:
   auth_mode:
 
 path.content: %path.base%/content
-# path.pages: %path.base%/content/page
-# path.posts: %path.base%/content/post
 
 debug: false
+
+http_cache.enabled: true
+http_cache.default_ttl: 3600
