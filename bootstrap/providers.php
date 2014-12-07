@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Register the HttpCacheServiceProvider
- *
- * @link http://silex.sensiolabs.org/doc/providers/http_cache.html
- */
-$app->register(new Silex\Provider\HttpCacheServiceProvider, [
-    'http_cache.cache_dir' => __DIR__.'/../app/cache/',
-]);
-
-/**
  * Register the TwigServiceProvider
  *
  * @link http://silex.sensiolabs.org/doc/providers/twig.html
