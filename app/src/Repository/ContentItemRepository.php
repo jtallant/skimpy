@@ -29,18 +29,11 @@ class ContentItemRepository implements ObjectRepository
      * @param Finder                 $finder
      * @param ContentFromFileCreator $contentFromFileCreator
      * @param                        $contentPath
-     *
-     * @throws \Exception
      */
     public function __construct(
         ContentFromFileCreator $contentFromFileCreator,
         $contentPath
     ) {
-        if (false === is_readable($contentPath)) {
-            # TODO: Custom exception
-            throw new \Exception("Could not read from the content directory $contentPath");
-        }
-
         $this->contentFromFileCreator = $contentFromFileCreator;
         $this->contentPath = $contentPath;
     }

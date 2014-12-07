@@ -12,8 +12,6 @@ class ContentItemRepository implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
-     *
-     * @throws \Exception
      */
     public function register(Application $app)
     {
