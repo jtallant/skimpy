@@ -1,6 +1,4 @@
-<?php
-
-namespace Skimpy\Entity;
+<?php namespace Skimpy\Entity;
 
 /**
  * Class ContentType
@@ -9,6 +7,11 @@ namespace Skimpy\Entity;
  */
 class ContentType
 {
+    /**
+     * @var string
+     */
+    protected $key;
+
     /**
      * @var string
      */
@@ -28,6 +31,17 @@ class ContentType
      * @var array
      */
     protected $terms;
+
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    public function setKey($key)
+    {
+        $this->key = $key;
+        return $this;
+    }
 
     /**
      * @return string
