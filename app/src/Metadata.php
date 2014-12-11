@@ -32,7 +32,7 @@ class Metadata
     /**
      * @param array $raw
      */
-    public function setRaw($raw)
+    public function setRaw(array $raw)
     {
         $this->raw = $raw;
         return $this;
@@ -49,7 +49,7 @@ class Metadata
     /**
      * @param array $full
      */
-    public function setFull($full)
+    public function setFull(array $full)
     {
         $this->full = $full;
         return $this;
@@ -66,7 +66,7 @@ class Metadata
     /**
      * @param array $hydrated
      */
-    public function setHydrated($hydrated)
+    public function setHydrated(array $hydrated)
     {
         $this->hydrated = $hydrated;
         return $this;
