@@ -77,4 +77,9 @@ class Term
         $this->items = $items;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

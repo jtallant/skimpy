@@ -11,7 +11,7 @@ class SplFileInfoToContentItemTest extends BaseTestCase
     {
         $path = $this->app['path.content'].'/page/about-me.md';
         $file = new SplFileInfo($path, '', '');
-        $transformer = new SplFileInfoToContentItem;
+        $transformer = $this->app['skimpy.transformer.spl_file_info_to_content_item'];
         $contentItem = $transformer->transform($file);
         $this->assertInstanceOf('Skimpy\Entity\ContentItem', $contentItem);
     }

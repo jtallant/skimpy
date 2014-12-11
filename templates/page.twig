@@ -1,11 +1,11 @@
 {% extends 'layouts/master.twig' %}
 
-{% block title %}{{ seotitle }}{% endblock title %}
+{% block title %}{{ contentItem.seotitle }}{% endblock title %}
 
 {% block content %}
     <header>
-        <h1>{{ title }}</h1>
-        <p>Published: <time pubdate="pubdate">{{ date | date('F j Y') }}</time></p>
+        <h1>{{ contentItem.title }}</h1>
+        <p>Published: <time pubdate="pubdate">{{ contentItem.date | date('F j Y') }}</time></p>
     </header>
-    {{ content | raw }}
+    {{ contentItem.content | raw }}
 {% endblock content %}

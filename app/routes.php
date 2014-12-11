@@ -66,15 +66,17 @@ $app->get('/{contentTypeSlug}/{termSlug}', function($contentTypeSlug, $termSlug)
  */
 $app->get('/{slug}', function($slug) use ($app) {
 
-    $content = $app['skimpy']->findBySlug($slug);
+    $contentItem = $app['skimpy']->findBySlug($slug);
 
-    if (is_null($content)) {
+    if (is_null($contentItem)) {
         $app->abort(404);
     }
 
     return $app['twig']->render(
-        $content->getTemplate().'.twig',
-        $content->getViewData()
+        $contentItem->getTemplate().'.twig',
+        [
+            'contentItem' => $contentItem
+        ]
     );
 })
 ->bind('content');

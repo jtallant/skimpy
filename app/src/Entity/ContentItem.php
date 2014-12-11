@@ -2,6 +2,7 @@
 
 use DateTime;
 use Skimpy\Behavior\ReadableProperties;
+use Skimpy\Metadata;
 
 /**
  * Class ContentItem
@@ -31,14 +32,9 @@ class ContentItem
     protected $date;
 
     /**
-     * @var array
+     * @var Metadata
      */
-    protected $metadata = [];
-
-    /**
-     * @var array
-     */
-    protected $viewData = [];
+    protected $metadata;
 
     /**
      * @var string
@@ -160,7 +156,7 @@ class ContentItem
     /**
      * Returns the metadata
      *
-     * @return array
+     * @return Metadata
      */
     public function getMetadata()
     {
@@ -170,36 +166,13 @@ class ContentItem
     /**
      * Sets the metadata
      *
-     * @param array $metadata
+     * @param Metadata $metadata
      *
      * @return $this
      */
-    public function setMetadata(array $metadata)
+    public function setMetadata(Metadata $metadata)
     {
         $this->metadata = $metadata;
-        return $this;
-    }
-
-    /**
-     * Returns the view data
-     *
-     * @return array
-     */
-    public function getViewData()
-    {
-        return $this->viewData;
-    }
-
-    /**
-     * Sets the view data array
-     *
-     * @param array $viewData
-     *
-     * @return $this
-     */
-    public function setViewData(array $viewData)
-    {
-        $this->viewData = $viewData;
         return $this;
     }
 

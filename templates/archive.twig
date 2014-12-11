@@ -18,7 +18,7 @@
                     <span class="categories">
                         Filed Under:
                         {% for cat in post.categories %}
-                            <a href="/category/{{ cat }}">{{ cat }}</a>{{ loop.last ? '' : ',' }}
+                            <a href="/category/{{ cat.slug }}">{{ cat.name }}</a>{{ loop.last ? '' : ',' }}
                         {% endfor %}
                     </span> <!-- .categories -->
                 {% endif %}
@@ -26,7 +26,7 @@
                     <span class="tags">
                         Tagged With:
                         {% for tag in post.tags %}
-                            <a href="/tags/{{ tag | lower }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
+                            <a href="/tag/{{ tag.slug }}">{{ tag.name }}</a>{{ loop.last ? '' : ',' }}
                         {% endfor %}
                     </span> <!-- .tags -->
                 {% endif %}

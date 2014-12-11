@@ -17,7 +17,7 @@ class ContentItem implements ServiceProviderInterface
     {
         $app['skimpy.repository.content_item'] = $app->share(function($app) {
             return new \Skimpy\Repository\ContentItem(
-                new \Skimpy\Transformer\SplFileInfoToContentItem,
+                $app['skimpy.transformer.spl_file_info_to_content_item'],
                 $app['path.content']
             );
         });

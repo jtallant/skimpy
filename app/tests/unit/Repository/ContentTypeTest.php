@@ -1,6 +1,5 @@
 <?php namespace Skimpy\Repository;
 
-use Skimpy\Entity\ContentType;
 use Skimpy\BaseTestCase;
 
 class ContentTypeTest extends BaseTestCase

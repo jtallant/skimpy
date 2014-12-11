@@ -78,6 +78,9 @@ class Skimpy
     public function getArchive($contentTypeSlug, $termSlug)
     {
         $contentType = $this->contentTypeRepository->findOneBy(['slug' => $contentTypeSlug]);
+        if (is_null($contentType)) {
+            return null;
+        }
         $termCriteria = ['contentTypeKey' => $contentType->getKey(), 'slug' => $termSlug];
         return $this->termRepository->findOneBy($termCriteria);
     }
