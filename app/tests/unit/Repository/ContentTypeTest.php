@@ -30,7 +30,7 @@ class ContentTypeTest extends BaseTestCase
     public function it_contains_content_type_objects()
     {
         $objects = $this->repo->findAll();
-        $this->assertTrue($objects[0] instanceof ContentType);
+        $this->assertTrue($objects[0] instanceof \Skimpy\Entity\ContentType);
     }
 
     /** @test */
