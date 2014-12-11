@@ -16,7 +16,7 @@ class ArrayToTerm implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['skimpy.transformer.array_to_term'] = $app->share(function($app) {
-            return new \Skimpy\Transformer\ArrayToTerm;
+            return new \Skimpy\Transformer\ArrayToTerm($app['skimpy.repository.content_item']);
         });
     }
 
