@@ -1,4 +1,4 @@
-title:      Example 2
+title:      Example 1
 date:       2015-05-20
 seotitle:   bar
 categories: [foo BAR baz]

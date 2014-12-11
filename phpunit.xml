@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="bootstrap/start.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="Skimpy Test Suite">
-            <directory>./app/tests/</directory>
+            <directory>./app/tests/unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>

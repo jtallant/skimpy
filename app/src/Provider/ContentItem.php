@@ -4,22 +4,21 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 /**
- * Class Skimpy
+ * Class ContentItem
  *
  * @package Skimpy\Provider
  */
-class Skimpy implements ServiceProviderInterface
+class ContentItem implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
     public function register(Application $app)
     {
-        $app['skimpy'] = $app->share(function($app) {
-            return new \Skimpy\Service\Skimpy(
-                $app['skimpy.repository.content_item'],
-                $app['skimpy.repository.content_type'],
-                $app['skimpy.repository.term']
+        $app['skimpy.repository.content_item'] = $app->share(function($app) {
+            return new \Skimpy\Repository\ContentItem(
+                new \Skimpy\Transformer\SplFileInfoToContentItem,
+                $app['path.content']
             );
         });
     }
@@ -29,5 +28,6 @@ class Skimpy implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
+
     }
 }

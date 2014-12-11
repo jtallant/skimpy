@@ -1,11 +1,11 @@
-<?php namespace Skimpy\Service;
+<?php namespace Skimpy\Transformer;
 
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
 use Michelf\Markdown;
 use Skimpy\Entity\ContentItem;
 
-class ContentFromFileCreator
+class SplFileInfoToContentItem
 {
     const METADATA_SEPARATOR = '----------';
 
@@ -42,7 +42,7 @@ class ContentFromFileCreator
      *
      * @return ContentItem
      */
-    public function createContentObject(SplFileInfo $file)
+    public function transform(SplFileInfo $file)
     {
         $rawFileContents = $file->getContents();
         $rawMetadata = $this->parseMetadata($rawFileContents);

@@ -4,22 +4,20 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 /**
- * Class Skimpy
+ * Class ArrayToContentType
  *
  * @package Skimpy\Provider
  */
-class Skimpy implements ServiceProviderInterface
+class ArrayToContentType implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
     public function register(Application $app)
     {
-        $app['skimpy'] = $app->share(function($app) {
-            return new \Skimpy\Service\Skimpy(
-                $app['skimpy.repository.content_item'],
-                $app['skimpy.repository.content_type'],
-                $app['skimpy.repository.term']
+        $app['skimpy.transformer.array_to_content_type'] = $app->share(function($app) {
+            return new \Skimpy\Transformer\ArrayToContentType(
+                $app['skimpy.transformer.array_to_term']
             );
         });
     }

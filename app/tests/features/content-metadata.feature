@@ -9,4 +9,4 @@ Feature: content metadata
         And I provided "date" metadata as "2015-05-16"
         When I am on "/hello-world"
         Then I should see "Hello World"
-        And I should see "Published: May 16 2015"
+        And I should see "Published: May 16th, 2015"

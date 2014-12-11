@@ -1,7 +1,7 @@
-title:      Example 2
+title:      Example Post
 date:       2015-05-20
-seotitle:   bar
-categories: [foo BAR baz]
+seotitle:   Example Post Seotitle
+categories: [foo, bar]
 ----------
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

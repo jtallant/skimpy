@@ -45,9 +45,29 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 $app->register(new Silex\Provider\SwiftmailerServiceProvider);
 
 /**
- * Register the ContentItemRepository
+ * Register the ArrayToTerm Transformer
  */
-$app->register(new Skimpy\Provider\ContentItemRepository);
+$app->register(new Skimpy\Provider\ArrayToTerm);
+
+/**
+ * Register the ArrayToContenType Transformer
+ */
+$app->register(new Skimpy\Provider\ArrayToContentType);
+
+/**
+ * Register the ContentItem Repository
+ */
+$app->register(new Skimpy\Provider\ContentItem);
+
+/**
+ * Register the Term Repository
+ */
+$app->register(new Skimpy\Provider\Term);
+
+/**
+ * Register the ContentType Repository
+ */
+$app->register(new Skimpy\Provider\ContentType);
 
 /**
  * Register Skimpy

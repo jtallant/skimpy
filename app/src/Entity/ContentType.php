@@ -1,5 +1,7 @@
 <?php namespace Skimpy\Entity;
 
+use Skimpy\Behavior\ReadableProperties;
+
 /**
  * Class ContentType
  *
@@ -31,6 +33,8 @@ class ContentType
      * @var array
      */
     protected $terms;
+
+    use ReadableProperties;
 
     public function getKey()
     {

@@ -33,6 +33,9 @@
         "mockery/mockery": "0.9.*@dev"
     },
     "autoload": {
-        "psr-4": {"Skimpy\\": "app/src/"}
+        "psr-4": {"Skimpy\\": "app/src/"},
+        "classmap": [
+            "app/tests/unit/BaseTestCase.php"
+        ]
     }
 }

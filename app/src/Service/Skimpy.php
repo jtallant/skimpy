@@ -18,13 +18,28 @@ class Skimpy
     protected $contentRepository;
 
     /**
+     * @var ObjectRepository
+     */
+    protected $contentTypeRepository;
+
+    /**
+     * @var ObjectRepository
+     */
+    protected $termRepository;
+
+    /**
      * Constructor
      *
      * @param ObjectRepository $contentRepository
      */
-    public function __construct(ObjectRepository $contentRepository)
-    {
+    public function __construct(
+        ObjectRepository $contentRepository,
+        ObjectRepository $contentTypeRepository,
+        ObjectRepository $termRepository
+    ) {
         $this->contentRepository = $contentRepository;
+        $this->contentTypeRepository = $contentTypeRepository;
+        $this->termRepository = $termRepository;
     }
 
     /**
@@ -62,6 +77,8 @@ class Skimpy
      */
     public function getArchive($contentTypeSlug, $termSlug)
     {
-        return [];
+        $contentType = $this->contentTypeRepository->findOneBy(['slug' => $contentTypeSlug]);
+        $termCriteria = ['contentTypeKey' => $contentType->getKey(), 'slug' => $termSlug];
+        return $this->termRepository->findOneBy($termCriteria);
     }
 }

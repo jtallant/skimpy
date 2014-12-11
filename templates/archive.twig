@@ -4,28 +4,28 @@
 
 {% block content %}
     <h1>{{ archiveName | title }}</h1>
-    {% for post in collection %}
+    {% for post in items %}
         <article>
             <header>
-                <h1><a href="/{{ post.getSlug }}">{{ post.getTitle }}</a></h1>
-                <p>Published: <time pubdate="pubdate">{{ post.getDate | date('F j Y') }}</time></p>
+                <h1><a href="/{{ post.slug }}">{{ post.title }}</a></h1>
+                <p>Published: <time pubdate="pubdate">{{ post.date | date('F dS Y') }}</time></p>
             </header>
             <div class="excerpt">
-                <p>{{ post.getExcerpt }}&hellip;</p>
+                <p>{{ post.excerpt }}&hellip;</p>
             </div> <!-- .excerpt -->
             <footer>
-                {% if post.getCategories | length %}
+                {% if post.categories | length %}
                     <span class="categories">
                         Filed Under:
-                        {% for cat in post.getCategories %}
+                        {% for cat in post.categories %}
                             <a href="/category/{{ cat }}">{{ cat }}</a>{{ loop.last ? '' : ',' }}
                         {% endfor %}
                     </span> <!-- .categories -->
                 {% endif %}
-                {% if post.getTags | length %}
+                {% if post.tags | length %}
                     <span class="tags">
                         Tagged With:
-                        {% for tag in post.getTags %}
+                        {% for tag in post.tags %}
                             <a href="/tags/{{ tag | lower }}">{{ tag }}</a>{{ loop.last ? '' : ',' }}
                         {% endfor %}
                     </span> <!-- .tags -->

@@ -39,36 +39,26 @@ $app->get('/contact', function() use ($app) {
  * Render category or tag archive
  *
  * Examples URIs:
- * /category/{category-name-slug}
- * /tag/{tag-name-slug}
+ * /category/{term-slug}
+ * /tag/{term-slug}
  */
-$app->get('/{taxonomyName}/{slug}', function($taxonomyName, $slug) use ($app) {
+$app->get('/{contentTypeSlug}/{termSlug}', function($contentTypeSlug, $termSlug) use ($app) {
 
-    $criteria = [
-        'tag' => 'tag1'
-    ];
+    $archive = $app['skimpy']->getArchive($contentTypeSlug, $termSlug);
 
-    $content = $app['skimpy']->findBy($criteria);
-
-    dd($content);
-//    $collection = $contentRepo->findByTaxonomy($taxonomyName, $slug);
-//    $collection = $app['skimpy']->findByTaxonomy('category', 'web-development');
-    $collection = $app['skimpy']->findBy(["$taxonomyName" => $slug]);
-
-    if (is_null($collection) || empty($collection->items())) {
+    if (is_null($archive)) {
         $app->abort(404);
     }
 
     return $app['twig']->render(
         'archive.twig',
         [
-            'archiveName' => $collection->getName(),
-            'seotitle'    => $collection->getName(),
-            'collection'  => $collection->items()
+            'archiveName' => $archive->getName(),
+            'seotitle'    => $archive->getName(),
+            'items'       => $archive->getItems()
         ]
     );
 })
-// ->assert('archiveType', 'category|tag')
 ->bind('archive');
 
 /**
