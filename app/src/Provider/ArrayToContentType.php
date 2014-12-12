@@ -17,7 +17,7 @@ class ArrayToContentType implements ServiceProviderInterface
     {
         $app['skimpy.transformer.array_to_content_type'] = $app->share(function($app) {
             return new \Skimpy\Transformer\ArrayToContentType(
-                $app['skimpy.transformer.array_to_term']
+                new \Skimpy\Transformer\ArrayToTerm
             );
         });
     }

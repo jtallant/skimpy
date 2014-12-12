@@ -45,11 +45,6 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 $app->register(new Silex\Provider\SwiftmailerServiceProvider);
 
 /**
- * Register the ArrayToTerm Transformer
- */
-$app->register(new Skimpy\Provider\ArrayToTerm);
-
-/**
  * Register the ArrayToContentType Transformer
  */
 $app->register(new Skimpy\Provider\ArrayToContentType);
