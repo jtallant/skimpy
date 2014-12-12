@@ -1,6 +1,7 @@
 <?php namespace Skimpy\Service;
 
 use Skimpy\Contracts\ObjectRepository;
+use Skimpy\Entity\Term;
 
 /**
  * Class Skimpy
@@ -78,10 +79,37 @@ class Skimpy
     public function getArchive($contentTypeSlug, $termSlug)
     {
         $contentType = $this->contentTypeRepository->findOneBy(['slug' => $contentTypeSlug]);
+
         if (is_null($contentType)) {
             return null;
         }
-        $termCriteria = ['contentTypeKey' => $contentType->getKey(), 'slug' => $termSlug];
-        return $this->termRepository->findOneBy($termCriteria);
+
+        $term = $this->getTerm($contentType->getKey(), $termSlug);
+
+        if (is_null($term)) {
+            return null;
+        }
+
+        $contentItems = $this->getTermContentItems($term);
+        $term->setItems($contentItems);
+
+        return $term;
+    }
+
+    protected function getTerm($contentTypeKey, $termSlug)
+    {
+        return $this->termRepository->findOneBy(
+            [
+                'contentTypeKey' => $contentTypeKey,
+                'slug' => $termSlug
+            ]
+        );
+    }
+
+    protected function getTermContentItems(Term $term)
+    {
+        return $this->contentRepository->findBy(
+            [$term->getContentTypeKey() => $term->getName()]
+        );
     }
 }

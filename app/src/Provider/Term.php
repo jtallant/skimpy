@@ -18,8 +18,7 @@ class Term implements ServiceProviderInterface
         $app['skimpy.repository.term'] = $app->share(function($app) {
             return new \Skimpy\Repository\Term(
                 $app['content_types'],
-                $app['skimpy.transformer.array_to_content_type'],
-                $app['skimpy.repository.content_item']
+                $app['skimpy.transformer.array_to_content_type']
             );
         });
     }

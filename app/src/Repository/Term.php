@@ -15,19 +15,10 @@ class Term extends Base implements ObjectRepository
      */
     protected $transformer;
 
-    /**
-     * @var ContentItem
-     */
-    protected $contentItemRepository;
-
-    public function __construct(
-        array $contentTypes,
-        ArrayToContentType $transformer,
-        ContentItem $contentItemRepository
-    ) {
+    public function __construct(array $contentTypes, ArrayToContentType $transformer)
+    {
         $this->contentTypes = $contentTypes;
         $this->transformer = $transformer;
-        $this->contentItemRepository = $contentItemRepository;
     }
 
     /**
@@ -40,21 +31,6 @@ class Term extends Base implements ObjectRepository
             $contentType = $this->transformer->transform($type);
             $terms = array_merge($terms, $contentType->getTerms());
         }
-
-        foreach ($terms as $term) {
-            $items = $this->getTermItems($term);
-            $term->setItems($items);
-        }
-
         return $terms;
-    }
-
-    protected function getTermItems($term)
-    {
-        $criteria = [
-            $term->getContentTypeKey() => $term->getName()
-        ];
-
-        return $this->contentItemRepository->findBy($criteria);
     }
 }
