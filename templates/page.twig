@@ -5,7 +5,7 @@
 {% block content %}
     <header>
         <h1>{{ contentItem.title }}</h1>
-        <p>Published: <time pubdate="pubdate">{{ contentItem.date | date('F j Y') }}</time></p>
+        <p>Published: <time pubdate="pubdate">{{ contentItem.date | date('F dS, Y') }}</time></p>
     </header>
     {{ contentItem.content | raw }}
 {% endblock content %}
