@@ -18,16 +18,16 @@ site.meta_description: ContentItem of meta description goes here
 site.admin_email: you@example.com
 
 swiftmailer.options:
-  host: host
-  port: 25
-  username: username
-  password: password
+  host: smtp.mandrillapp.com
+  port: 587
+  username: %mailer.username%
+  password: %mailer.password%
   encryption:
   auth_mode:
 
 path.content: %path.base%/content
 
-debug: false
-
 http_cache.enabled: true
 http_cache.default_ttl: 3600
+
+debug: false
