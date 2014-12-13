@@ -9,3 +9,4 @@ php_errors.log
 Gemfile.lock
 composer.lock
 .php_cs
+*.sublime-*
