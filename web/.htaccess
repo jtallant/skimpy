@@ -1,3 +1,35 @@
 # http://httpd.apache.org/docs/current/mod/mod_dir.html#fallbackresource
 # Works on Apache >= 2.2.16
 FallbackResource /index.php
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+</IfModule>
+
+# If above doesn't work, comment it out
+# or delete it and try the legacy version below
+
+# LEGACY .htaccess
+#
+#<IfModule mod_negotiation.c>
+#    Options -MultiViews
+#</IfModule>
+#<IfModule mod_rewrite.c>
+#    RewriteEngine On
+#
+#    # Redirect Trailing Slashes...
+#    RewriteRule ^(.*)/$ /$1 [L,R=301]
+#
+#    # Handle Front Controller...
+#    RewriteBase /
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule ^ index.php [L]
+#</IfModule>
