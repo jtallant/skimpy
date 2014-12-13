@@ -11,8 +11,13 @@
          syntaxCheck="false"
 >
     <testsuites>
-        <testsuite name="Skimpy Test Suite">
+        <testsuite name="unit">
             <directory>./app/tests/unit</directory>
+        </testsuite>
+    </testsuites>
+    <testsuites>
+        <testsuite name="integration">
+            <directory>./app/tests/integration</directory>
         </testsuite>
     </testsuites>
 </phpunit>
