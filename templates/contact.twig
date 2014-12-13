@@ -2,7 +2,11 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
-    <p>
-        A swiftmailer contact form should go here.
-    </p>
+    <form action="{{ url('contact') }}" method="POST">
+        <label for="from">Email:</label>
+        <input type="email" name="from" id="from" />
+        <label for="message">Message:</label>
+        <textarea name="message" id="message"></textarea>
+        <input type="submit" value="Send Message" />
+    </form>
 {% endblock content %}
