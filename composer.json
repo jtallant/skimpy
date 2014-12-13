@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {"Skimpy\\": "app/src/"},
         "classmap": [
-            "app/tests/unit/BaseTestCase.php"
+            "app/tests/BaseTestCase.php"
         ]
     }
 }
