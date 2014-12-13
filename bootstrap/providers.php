@@ -39,15 +39,6 @@ $app->register(
     ]
 );
 
-$app['swiftmailer.options'] = array(
-    'host' => 'smtp.gmail.com',
-    'port' => '465',
-    'username' => 'jtallant07@gmail.com',
-    'password' => 'Jirtzec$9116',
-    'encryption' => 'ssl',
-    'auth_mode' => 'login'
-);
-
 /**
  * Register the UrlGeneratorServiceProvider
  */
