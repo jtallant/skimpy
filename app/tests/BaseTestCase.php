@@ -9,7 +9,6 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        // yeah let's cheat and not actually unit test for now
         global $app;
         $app['path.content'] = $app['path.base'].'/app/tests/data/content';
         $this->app = $app;
