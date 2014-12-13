@@ -8,5 +8,4 @@ composer.lock
 php_errors.log
 Gemfile.lock
 composer.lock
-phpunit.xml
-behat.yml
+.php_cs
