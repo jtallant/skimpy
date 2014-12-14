@@ -22,20 +22,6 @@ $app->get('/', function() use ($app) {
 ->bind('home');
 
 /**
- * Render contact form
- */
-$app->get('/contact', function() use ($app) {
-
-    $data = [
-        'title' => 'Contact',
-        'seotitle' => 'Contact'
-    ];
-
-    return $app->render('contact.twig', $data);
-})
-->bind('contact');
-
-/**
  * Render category or tag archive
  *
  * Examples URIs:
