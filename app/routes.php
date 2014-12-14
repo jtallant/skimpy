@@ -12,7 +12,6 @@ use AgnosticPhp\Support\Collection;
  * Home page
  */
 $app->get('/', function() use ($app) {
-
     $data = [
         'seotitle' => $app['site.title']
     ];
@@ -36,7 +35,7 @@ $app->get('/{contentTypeSlug}/{termSlug}', function($contentTypeSlug, $termSlug)
         $app->abort(404);
     }
 
-    return $app['twig']->render(
+    return $app->render(
         'archive.twig',
         [
             'archiveName' => $archive->getName(),
@@ -58,11 +57,9 @@ $app->get('/{slug}', function($slug) use ($app) {
         $app->abort(404);
     }
 
-    return $app['twig']->render(
+    return $app->render(
         $contentItem->getTemplate().'.twig',
-        [
-            'contentItem' => $contentItem
-        ]
+        ['contentItem' => $contentItem]
     );
 })
 ->bind('content');
