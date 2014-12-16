@@ -33,6 +33,20 @@ $app->register(
 );
 
 /**
+ * Adds a 'date_default' filter to twig
+ *
+ * It simply formats a date using the formatting defined by site.date_format
+ */
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $defaultDateFormat = new Twig_SimpleFilter('date_default_format', function($date) use($app) {
+        $format = isset($app['site.date_format']) ? $app['site.date_format'] : 'Y-m-d H:i:s';
+        return $date->format($format);
+    });
+    $twig->addFilter($defaultDateFormat);
+    return $twig;
+}));
+
+/**
  * Register the UrlGeneratorServiceProvider
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
