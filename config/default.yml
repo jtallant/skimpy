@@ -16,14 +16,6 @@ site.date_format: 'F dS, Y'
 # https://support.google.com/webmasters/answer/35624?hl=en#1
 site.meta_description: ContentItem of meta description goes here
 
-swiftmailer.options:
-  host: smtp.mandrillapp.com
-  port: 587
-  username: %mailer.username%
-  password: %mailer.password%
-  encryption:
-  auth_mode:
-
 path.content: %path.base%/content
 
 http_cache.enabled: true

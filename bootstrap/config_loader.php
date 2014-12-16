@@ -7,9 +7,7 @@ $app->register(
     new Igorw\Silex\ConfigServiceProvider(
         $app['path.base'].'/config/default.yml',
         [
-            'path.base' => $app['path.base'],
-            'mailer.username' => getenv('MAILER_USERNAME'),
-            'mailer.password' => getenv('MAILER_PASSWORD')
+            'path.base' => $app['path.base']
         ]
     )
 );

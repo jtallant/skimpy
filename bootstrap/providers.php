@@ -17,13 +17,6 @@ if ($app['http_cache.enabled']) {
 }
 
 /**
- * Register the SwiftmailerServiceProvider
- *
- * @link http://silex.sensiolabs.org/doc/providers/swiftmailer.html
- */
-$app->register(new Silex\Provider\SwiftmailerServiceProvider);
-
-/**
  * Register the TwigServiceProvider
  *
  * @link http://silex.sensiolabs.org/doc/providers/twig.html
