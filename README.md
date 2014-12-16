@@ -16,30 +16,10 @@ based blog that doesn't require any generating.
 * It doesn't require any generating
 * It's fast
 * It has zero default styling
-* It comes with a swiftmailer contact form
 * It's built with Silex
-
-## Features for 1.0 will include:
-* Basic routing to posts and pages
-* Archives (for categories and tags)
-* Related posts
-* Twig templating
-* Out of the box contact form
-
-## Features for 1.1 will include:
-* Pagination
 
 ## Set up
 * Clone this repo
-
-## TODO
-* Slug property on content class
-* Collection for archives
-* Twig extension for rendering date in site default date format
-* Env detection
-* Tests
-* Import from WordPress
-* A whole bunch of other stuff
 
 ## NOTE
 * URIs according to W3C are case sensitive. This means that you will get a 404
