@@ -15,7 +15,6 @@ site.date_format: 'F dS, Y'
 
 # https://support.google.com/webmasters/answer/35624?hl=en#1
 site.meta_description: ContentItem of meta description goes here
-site.admin_email: you@example.com
 
 swiftmailer.options:
   host: smtp.mandrillapp.com
