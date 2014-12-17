@@ -16,6 +16,12 @@ based blog that doesn't require any generating.
 * It has zero default styling
 * It's built with Silex
 
+## Status of Project
+
+I haven't tagged a release because I'm not even considering it alpha yet. 
+But it does work and you can use it now if you want.
+I will tag a release when the docs are complete.
+
 
 ## Installation & Setup
 
