@@ -2,8 +2,6 @@
 
 [![Code Climate](https://codeclimate.com/github/jtallant/skimpy/badges/gpa.svg)](https://codeclimate.com/github/jtallant/skimpy)
 
-**This project is in the very early stages of development. It is not ready to use.**
-
 Skimpy is a file based blog that doesn't require any generating.
 
 It's mainly built for developers. I built it because I want a simple file 
@@ -18,8 +16,25 @@ based blog that doesn't require any generating.
 * It has zero default styling
 * It's built with Silex
 
-## Set up
-* Clone this repo
+
+## Installation & Setup
+
+Install through composer or by downloading the zip.
+
+1. `composer create-project jtallant/skimpy`
+2. cd into the project and run `php -S localhost:400 -t web/`
+3. Visit url http://localhost:4000
+
+### Creating a blog post
+
+1. You simply create a new file inside content/<somedir>/ and give it the required metadata
+
+Some conventions you should be aware of:
+* The name of "somedir" in content/<somedir>/your-blog-post.md determes which twig template to use. See templates directory.
+* The name of the file is the slug of the blog post (the uri)
+* title and date are required metadata for every blog post.
+* The metadata must be valid (YAML)[http://en.wikipedia.org/wiki/YAML#Syntax]
+* The metadata separator must be exactly 10 hyphens.
 
 ## NOTE
 * URIs according to W3C are case sensitive. This means that you will get a 404
