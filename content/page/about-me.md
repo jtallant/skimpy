@@ -1,6 +1,5 @@
 title:       About Me
 date:        2015-05-16
-#template:    page
 description: The meta description goes here for SEO purposes.
 ----------
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

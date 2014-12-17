@@ -1,7 +1,7 @@
 title:      Foo
 date:       2015-05-18
 seotitle:   foo
-categories: [Unix]
+categories: [Web Development]
 tags:       [Tag1, Tag2]
 ----------
 <p>

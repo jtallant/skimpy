@@ -1,7 +1,6 @@
 title:      Bar
 date:       2015-05-20
 seotitle:   bar
-categories: [Unix]
 tags:       [Tag1]
 ----------
 <p>
