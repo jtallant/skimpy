@@ -33,7 +33,7 @@ Some conventions you should be aware of:
 * The name of "somedir" in content/<somedir>/your-blog-post.md determes which twig template to use. See templates directory.
 * The name of the file is the slug of the blog post (the uri)
 * title and date are required metadata for every blog post.
-* The metadata must be valid (YAML)[http://en.wikipedia.org/wiki/YAML#Syntax]
+* The metadata must be valid [YAML](http://en.wikipedia.org/wiki/YAML#Syntax)
 * The metadata separator must be exactly 10 hyphens.
 
 ## NOTE
