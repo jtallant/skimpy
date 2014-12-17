@@ -12,27 +12,11 @@
             "homepage": "http://justintallant.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "git",
-            "url":  "/Users/justin/Repositories/skimpy-engine"
-        }
-    ],
     "require": {
-        "jtallant/skimpy-engine": "dev-master",
-        "php": ">=5.4.0",
-        "silex/silex": "~1.2",
-        "twig/twig": ">=1.8,<2.0-dev",
-        "swiftmailer/swiftmailer": ">=4.1.2,<4.2-dev",
-        "symfony/finder": "2.5.6",
-        "symfony/twig-bridge": "3.0.*@dev",
-        "symfony/yaml": ">=2.5",
-        "igorw/config-service-provider": "1.2.2",
-        "michelf/php-markdown": "1.4.1",
-        "vlucas/phpdotenv": "~1.0",
-        "agnosticphp/support": "dev-master"
+        "jtallant/skimpy-engine": "dev-master"
     },
     "autoload": {
         "psr-4": {"App\\": "app/"}
-    }
+    },
+    "minimum-stability": "dev"
 }
