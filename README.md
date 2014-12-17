@@ -21,7 +21,7 @@ based blog that doesn't require any generating.
 
 Install through composer or by downloading the zip.
 
-1. `composer create-project jtallant/skimpy`
+1. `composer create-project jtallant/skimpy -s dev`
 2. cd into the project and run `php -S localhost:400 -t web/`
 3. Visit url http://localhost:4000
 
