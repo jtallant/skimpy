@@ -27,10 +27,10 @@ Install through composer or by downloading the zip.
 
 ### Creating a blog post
 
-1. You simply create a new file inside content/<somedir>/ and give it the required metadata
+1. You simply create a new file inside content/somedir/ and give it the required metadata
 
 Some conventions you should be aware of:
-* The name of "somedir" in content/<somedir>/your-blog-post.md determes which twig template to use. See templates directory.
+* The name of "somedir" in content/somedir/your-blog-post.md determes which twig template to use. See templates directory.
 * The name of the file is the slug of the blog post (the uri)
 * title and date are required metadata for every blog post.
 * The metadata must be valid [YAML](http://en.wikipedia.org/wiki/YAML#Syntax)
