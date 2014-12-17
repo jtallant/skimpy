@@ -18,7 +18,7 @@ site.meta_description: ContentItem of meta description goes here
 
 path.content: %path.base%/content
 
-http_cache.enabled: true
+http_cache.enabled: false
 http_cache.default_ttl: 3600
 
 debug: false
