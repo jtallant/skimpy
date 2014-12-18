@@ -11,7 +11,7 @@ site.timezone: America/Chicago
 
 # The default date formatting when displaying post dates
 # http://php.net/manual/en/function.date.php
-site.date_format: 'F dS, Y'
+site.date_format: 'F jS, Y'
 
 # https://support.google.com/webmasters/answer/35624?hl=en#1
 site.meta_description: ContentItem of meta description goes here
