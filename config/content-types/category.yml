@@ -1,0 +1,11 @@
+# The slug is the name of the file
+key: categories         # Used in metadata
+name: Category          # Used in HTML
+plural_name: Categories # Used in HTML
+terms:
+  -
+    name: Web Development
+    slug: web-development
+  -
+    name: foo BAR baz
+    slug: foo-bar-baz

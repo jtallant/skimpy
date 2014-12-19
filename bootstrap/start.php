@@ -15,10 +15,6 @@ if (file_exists($app['path.base'].'/.env')) {
 
 $app['env'] = getenv('APP_ENV') ?: 'prod';
 
-$app['content_types'] = file_exists($app['path.base'].'/config/content/types.yml')
-    ? Symfony\Component\Yaml\Yaml::parse($app['path.base'].'/config/content/types.yml')
-    : [];
-
 /**
  * Register the configs before registering the providers
  * so they can be used when configuring some of the providers.

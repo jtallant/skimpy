@@ -1,7 +1,7 @@
 title:      Bar
 date:       2015-05-20
 seotitle:   bar
-tags:       [Tag1]
+tags:       [Tag 1]
 ----------
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

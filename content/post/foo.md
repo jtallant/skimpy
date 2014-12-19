@@ -2,7 +2,7 @@ title:      Foo
 date:       2015-05-18
 seotitle:   foo
 categories: [Web Development]
-tags:       [Tag1, Tag2]
+tags:       [Tag 1, Tag 2]
 ----------
 <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

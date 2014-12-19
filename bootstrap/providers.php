@@ -52,7 +52,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 /**
  * Register the ArrayToContentType Transformer
  */
-$app->register(new Skimpy\Provider\ArrayToContentType);
+$app->register(new Skimpy\Provider\SplFileInfoToContentType);
 
 /**
  * Register the ContentType Repository
