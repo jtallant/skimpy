@@ -50,14 +50,14 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider);
 
 /**
- * Register the ArrayToContentType Transformer
+ * Register the SplFileInfoToTaxonomy Transformer
  */
-$app->register(new Skimpy\Provider\SplFileInfoToContentType);
+$app->register(new Skimpy\Provider\SplFileInfoToTaxonomy);
 
 /**
- * Register the ContentType Repository
+ * Register the Taxonomy Repository
  */
-$app->register(new Skimpy\Provider\ContentType);
+$app->register(new Skimpy\Provider\Taxonomy);
 
 /**
  * Register the SplFileInfoToContentItem Transformer
