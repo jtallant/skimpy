@@ -26,9 +26,9 @@ $app->get('/', function() use ($app) {
  * /category/{term-slug}
  * /tag/{term-slug}
  */
-$app->get('/{contentTypeSlug}/{termSlug}', function($contentTypeSlug, $termSlug) use ($app) {
+$app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use ($app) {
 
-    $archive = $app['skimpy']->getArchive($contentTypeSlug, $termSlug);
+    $archive = $app['skimpy']->getArchive($taxonomySlug, $termSlug);
 
     if (is_null($archive)) {
         $app->abort(404);
