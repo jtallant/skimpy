@@ -10,3 +10,7 @@ Gemfile.lock
 composer.lock
 .php_cs
 *.sublime-*
+web/skimpy/
+Guardfile
+Gemfile
+.sass-cache
