@@ -50,7 +50,7 @@ $app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use (
  */
 $app->get('/{slug}', function($slug) use ($app) {
 
-    $contentItem = $app['skimpy']->findBySlug($slug);
+    $contentItem = $app['skimpy']->findOneBySlug($slug);
 
     if (is_null($contentItem)) {
         $app->abort(404);
