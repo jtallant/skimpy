@@ -19,10 +19,8 @@
                 <p id="site-tagline">{{ app['site.tagline'] }}</p>
             {% endblock header %}
         </header>
-        <article>
-            {% block content %}
-            {% endblock content %}
-        </article>
+        {% block content %}
+        {% endblock content %}
         <footer id="site-footer">
             {% block footer %}
                 {% block scripts %}

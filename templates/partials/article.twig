@@ -1,0 +1,27 @@
+<article>
+    <header>
+        <h1><a href="/{{ post.slug }}">{{ post.title }}</a></h1>
+        <p>Published: <time pubdate="pubdate">{{ post.date | date_default_format }}</time></p>
+    </header>
+    <div class="excerpt">
+        <p>{{ post.excerpt }}&hellip;</p>
+    </div> <!-- .excerpt -->
+    <footer>
+        {% if post.categories | length %}
+            <span class="categories">
+                Filed Under:
+                {% for cat in post.categories %}
+                    <a href="/category/{{ cat.slug }}">{{ cat.name }}</a>{{ loop.last ? '' : ',' }}
+                {% endfor %}
+            </span> <!-- .categories -->
+        {% endif %}
+        {% if post.tags | length %}
+            <span class="tags">
+                Tagged With:
+                {% for tag in post.tags %}
+                    <a href="/tag/{{ tag.slug }}">{{ tag.name }}</a>{{ loop.last ? '' : ',' }}
+                {% endfor %}
+            </span> <!-- .tags -->
+        {% endif %}
+    </footer>
+</article>

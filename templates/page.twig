@@ -3,9 +3,11 @@
 {% block title %}{{ contentItem.seotitle }}{% endblock title %}
 
 {% block content %}
-    <header>
-        <h1>{{ contentItem.title }}</h1>
-        <p>Published: <time pubdate="pubdate">{{ contentItem.date | date_default_format }}</time></p>
-    </header>
-    {{ contentItem.content | raw }}
+    <article>
+        <header>
+            <h1>{{ contentItem.title }}</h1>
+            <p>Published: <time pubdate="pubdate">{{ contentItem.date | date_default_format }}</time></p>
+        </header>
+        {{ contentItem.content | raw }}
+    </article>
 {% endblock content %}

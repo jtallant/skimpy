@@ -11,8 +11,12 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * Home page
  */
 $app->get('/', function() use ($app) {
+
+    $posts = $app['skimpy']->findBy(['type' => 'post'], ['date' => 'DESC']);
+
     $data = [
-        'seotitle' => $app['site.title']
+        'seotitle' => 'Home',
+        'posts' => $posts
     ];
 
     return $app->render('home.twig', $data);
