@@ -6,8 +6,7 @@ $app = new Skimpy\Application;
 
 $app['path.base'] = realpath(__DIR__.'/../');
 
-$app['http_cache.enabled'] = false;
-$app['http_cache.default_ttl'] = 3600;
+require __DIR__.'/default_configs.php';
 
 /**
  * Load the environment variables if there are any

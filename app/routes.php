@@ -41,9 +41,9 @@ $app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use (
     return $app->render(
         'archive.twig',
         [
-            'archiveName' => $archive->getName(),
-            'seotitle'    => $archive->getName(),
-            'items'       => $archive->getItems()
+            'archiveName' => 'Archive Name',
+            'seotitle'    => 'Archive Name',
+            'items'       => $archive
         ]
     );
 })
