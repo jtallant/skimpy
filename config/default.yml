@@ -14,11 +14,12 @@ site.timezone: America/Chicago
 site.date_format: 'F jS, Y'
 
 # https://support.google.com/webmasters/answer/35624?hl=en#1
-site.meta_description: ContentItem of meta description goes here
+site.meta_description: Content of meta description goes here
 
-path.content: %path.base%/content
+path.content: %skimpy.root_dir%/content
 
 http_cache.enabled: false
+
 http_cache.default_ttl: 3600
 
 debug: false

@@ -13,3 +13,4 @@
 #
 # https://github.com/vlucas/phpdotenv
 debug: true
+http_cache.enabled: false
