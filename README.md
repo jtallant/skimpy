@@ -42,10 +42,17 @@ Some conventions you should be aware of:
 * The name of the file is the slug of the blog post (the uri)
 * title and date are required metadata for every blog post.
 * The metadata must be valid [YAML](http://www.yaml.org/spec/1.2/spec.html)
-* The metadata separator must be exactly 10 hyphens.
+* The metadata separator must be exactly 3 hyphens.
 
 ## NOTE
 * URIs according to W3C are case sensitive. This means that you will get a 404
   if the casing is incorrect for some uri.
   You can use mod_rewrite to 301 redirect any URIs containing uppercase characters
   to all lowercase characters.
+  
+  
+## UP NEXT
+* CLI
+* Basic Theme
+* Verify config is working
+* Should doctrine proxies go here or in the engine?
