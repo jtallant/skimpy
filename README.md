@@ -29,7 +29,6 @@ Install through composer or by downloading the zip.
 
 1. `composer create-project jtallant/skimpy -s dev`
 1. cd into the project
-1. `touch db/sqlite.db`
 1. run `composer install`
 1. run `php -S localhost:4000 -t web/`
 1. Visit url http://localhost:4000
