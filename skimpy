@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Skimpy Command-Line tool
+ */
+
+/**
+ * Start the app
+ */
+$skimpyApp  = require_once __DIR__. '/bootstrap/start.php';
+
+// Setup a new ConsoleApp
+$consoleApp = new \Symfony\Component\Console\Application("Skimpy CLI");
+
+// Setup Commands
+$consoleApp->add(new \Skimpy\CLI\BuildDatabase($app['db_populator']));
+
+// Execute the App
+$consoleApp->run();
