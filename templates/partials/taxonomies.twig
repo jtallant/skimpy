@@ -1,0 +1,20 @@
+{% if item.hasTaxonomy('categories') or item.hasTaxonomy('tags') %}
+    <div class="taxonomies">
+        {% if item.hasTaxonomy('categories') %}
+            <span class="categories">
+                Filed Under:
+                {% for cat in item.categories %}
+                    <a href="/category/{{ cat.slug }}">{{ cat.name }}</a>{{ loop.last ? '' : ',' }}
+                {% endfor %}
+            </span> <!-- .categories -->
+        {% endif %}
+        {% if item.hasTaxonomy('tags') %}
+            <span class="tags">
+                Tagged With:
+                {% for tag in item.tags %}
+                    <a href="/tag/{{ tag.slug }}">{{ tag.name }}</a>{{ loop.last ? '' : ',' }}
+                {% endfor %}
+            </span> <!-- .tags -->
+        {% endif %}
+    </div> <!-- .taxonomies -->
+{% endif %}

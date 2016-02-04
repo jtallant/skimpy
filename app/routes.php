@@ -12,14 +12,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 $app->get('/', function() use ($app) {
 
-    # TODO: Remove this after CLI command is done
-    $app['db_populator']->populate();
-
     $posts = $app['skimpy']->findBy(['type' => 'post'], ['date' => 'DESC']);
 
     $data = [
         'seotitle' => 'Home',
-        'posts' => $posts
+        'items'    => $posts
     ];
 
     return $app->render('home.twig', $data);
@@ -65,7 +62,7 @@ $app->get('/{slug}', function($slug) use ($app) {
 
     return $app->render(
         $contentItem->getTemplate().'.twig',
-        ['contentItem' => $contentItem]
+        ['item' => $contentItem]
     );
 })
 ->bind('content');
