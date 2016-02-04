@@ -15,3 +15,4 @@ Guardfile
 Gemfile
 .sass-cache
 db/sqlite.db
+.seeded
