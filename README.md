@@ -51,7 +51,7 @@ Some conventions you should be aware of:
   
   
 ## UP NEXT
-* CLI
 * Basic Theme
 * Verify config is working
 * Should doctrine proxies go here or in the engine?
+- make them static in skimpy-engine
