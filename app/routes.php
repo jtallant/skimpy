@@ -24,16 +24,44 @@ $app->get('/', function() use ($app) {
 ->bind('home');
 
 /**
- * Render category or tag archive
+ * Render a page or post
+ */
+$app->get('/{slug}', function($slug) use ($app) {
+
+    $contentItem = $app['skimpy.content']->findOneBy(['uri' => $slug]);
+
+    if (is_null($contentItem)) {
+        $app->abort(404);
+    }
+
+    return $app->render(
+        $contentItem->getTemplate().'.twig',
+        ['item' => $contentItem]
+    );
+})
+->bind('content');
+
+/**
+ * Render category/tag archive or
+ * content in a subdirectory.
  *
  * Examples URIs:
- * /category/{term-slug}
- * /tag/{term-slug}
+ * /category/{term-slug}  (category archive)
+ * /tag/{term-slug}       (tag archive)
+ * /our-team/jon-doe      (page in subdirectory)
  */
 $app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use ($app) {
 
-    $archive = $app['skimpy']->getArchive($taxonomySlug, $termSlug);
+    $uri = $taxonomySlug.'/'.$termSlug;
+    $page = $app['skimpy.content']->findOneBy(['uri' => $uri]);
+    if (false === is_null($page)) {
+        return $app->render(
+            $page->getTemplate().'.twig',
+            ['item' => $page]
+        );
+    }
 
+    $archive = $app['skimpy']->getArchive($taxonomySlug, $termSlug);
     if (is_null($archive)) {
         $app->abort(404);
     }
@@ -50,22 +78,25 @@ $app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use (
 ->bind('archive');
 
 /**
- * Render a page or post
+ * Render content item two or more directories deep
+ *
+ * Examples URIs:
+ * /our-team/volunteers/jane-doe (content/page/our-team/volunteers/jane-doe.md)
+ * /our-team/volunteers/jon-doe  (content/page/our-team/volunteers/jon-doe.md)
  */
-$app->get('/{slug}', function($slug) use ($app) {
-
-    $contentItem = $app['skimpy']->findOneBySlug($slug);
-
-    if (is_null($contentItem)) {
-        $app->abort(404);
+$app->get('/{one}/{two}/{tree}', function($one, $two, $tree) use($app) {
+    $uri = $one.'/'.$two.'/'.$tree;
+    $page = $app['skimpy.content']->findOneBy(['uri' => $uri]);
+    if (false === is_null($page)) {
+        return $app->render(
+            $page->getTemplate().'.twig',
+            ['item' => $page]
+        );
     }
 
-    return $app->render(
-        $contentItem->getTemplate().'.twig',
-        ['item' => $contentItem]
-    );
+    $app->abort(404);
 })
-->bind('content');
+->assert('tree', '.+');
 
 /**
  * Handle 404 errors
