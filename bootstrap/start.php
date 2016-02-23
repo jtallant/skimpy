@@ -13,6 +13,6 @@ $app->register(new Skimpy\Provider\SkimpyProvider);
 
 date_default_timezone_set($app['site.timezone']);
 
-require __DIR__.'/../app/routes.php';
+require __DIR__.'/../config/routes.php';
 
 return $app;

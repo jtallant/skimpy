@@ -17,14 +17,12 @@ based blog that doesn't require any generating.
 * It's built with Silex
 
 ## Status of Project
-
 I haven't tagged a release because I'm not even considering it alpha yet. 
 But it does work and you can use it now if you want.
 I will tag a release when the docs are complete.
 
 
 ## Installation & Setup
-
 Install through composer or by downloading the zip.
 
 1. `composer create-project jtallant/skimpy -s dev`
@@ -33,7 +31,6 @@ Install through composer or by downloading the zip.
 1. Visit url http://localhost:4000
 
 ### Creating a blog post
-
 1. You simply create a new file inside content/somedir/ and give it the required metadata
 
 Some conventions you should be aware of:
@@ -48,10 +45,12 @@ Some conventions you should be aware of:
   if the casing is incorrect for some uri.
   You can use mod_rewrite to 301 redirect any URIs containing uppercase characters
   to all lowercase characters.
-  
-  
+
 ## UP NEXT
-* Basic Theme
+* Dev mode by default
+* Travis CI
 * Verify config is working
-* Should doctrine proxies go here or in the engine?
-- make them static in skimpy-engine
+* Move doctrine proxies to skimpy engine
+* Built in JSON API
+* Contact form
+* YAML Routes? http://gonzalo123.com/2013/03/04/scaling-silex-applications-part-ii-using-routecollection/
