@@ -46,11 +46,12 @@ Some conventions you should be aware of:
   You can use mod_rewrite to 301 redirect any URIs containing uppercase characters
   to all lowercase characters.
 
-## UP NEXT
-* Dev mode by default
-* Travis CI
-* Verify config is working
+## BETA
 * Move doctrine proxies to skimpy engine
+* YAML Routes http://gonzalo123.com/2013/03/04/scaling-silex-applications-part-ii-using-routecollection/
+* Travis CI
+
+## LATER
+* Travis CI
 * Built in JSON API
 * Contact form
-* YAML Routes? http://gonzalo123.com/2013/03/04/scaling-silex-applications-part-ii-using-routecollection/

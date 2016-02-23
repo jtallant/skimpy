@@ -1,0 +1,38 @@
+site.title: Skimpy
+site.tagline: Because static site generators are annoying
+site.author: Author Name
+
+# Optional google analytics tracking code
+site.ga_tracking_id: 'UA-XXXXXXXX-1'
+
+# A valid PHP timezone
+# http://php.net/manual/en/timezones.php
+site.timezone: America/Chicago
+
+# The default date formatting when displaying post dates
+# http://php.net/manual/en/function.date.php
+site.date_format: 'F jS, Y'
+
+# https://support.google.com/webmasters/answer/35624?hl=en#1
+site.meta_description: Content of meta description goes here
+
+# Default: false
+http_cache.enabled: %env.HTTP_CACHE_ENABLED%
+
+http_cache.default_ttl: 3600
+
+# Default: false
+debug: %env.DEBUG%
+
+# Set a custom key here to trigger rebuilding your content cache
+# You'll need to manually trigger the rebuild every time you make
+# a content change unless you have auto_rebuild set to true.
+# Auto rebuild should be used in dev environment only!
+build_key: null
+
+# If set to true, content cache is rebuilt on every request.
+# If this is false, you will have to manually trigger cache update
+# by running the CLI command or visiting yoursite.com?rebuild=$yourBuildKey.
+#
+# Default: true
+auto_rebuild: %env.AUTO_REBUILD%

@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = new Skimpy\Application;
 
-$app['skimpy.root_dir'] = realpath(__DIR__.'/../');
+$app['path.base'] = realpath(__DIR__.'/../');
 
 /**
  * Register the Skimpy Provider
