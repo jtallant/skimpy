@@ -4,7 +4,7 @@
 
 Skimpy is a file based blog that doesn't require any generating.
 
-It's mainly built for developers. I built it because I want a simple file 
+It's mainly built for developers. I built it because I want a simple file
 based blog that doesn't require any generating.
 
 ## Why you might like it (or not like it)
@@ -17,7 +17,7 @@ based blog that doesn't require any generating.
 * It's built with Silex
 
 ## Status of Project
-I haven't tagged a release because I'm not even considering it alpha yet. 
+I haven't tagged a release because I'm not even considering it alpha yet.
 But it does work and you can use it now if you want.
 I will tag a release when the docs are complete.
 
