@@ -1,5 +1,5 @@
 title:       About Me
-date:        2015-05-28
+date:        "2015-05-28"
 description: The meta description goes here for SEO purposes.
 ---
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

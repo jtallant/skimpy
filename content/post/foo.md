@@ -1,5 +1,5 @@
 title:      Foo
-date:       2015-05-18
+date:       "2015-05-18"
 seotitle:   foo
 categories: [Web Development]
 tags:       [Tag 1, Tag 2]

@@ -1,5 +1,4 @@
 # The slug is the name of the file w/o extension
-key: categories         # Used in metadata
 name: Category          # Used in HTML
 plural_name: Categories # Used in HTML
 terms:
