@@ -47,11 +47,9 @@ Some conventions you should be aware of:
   to all lowercase characters.
 
 ## BETA
-* Move doctrine proxies to skimpy engine
 * YAML Routes http://gonzalo123.com/2013/03/04/scaling-silex-applications-part-ii-using-routecollection/
 * Travis CI
 
 ## LATER
-* Travis CI
 * Built in JSON API
 * Contact form
