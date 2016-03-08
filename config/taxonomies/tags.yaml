@@ -1,5 +1,4 @@
 # The slug is the name of the file w/o extension
-key: tags
 name: Tag
 plural_name: Tags
 terms:

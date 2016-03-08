@@ -1,5 +1,5 @@
 title:      Example 1
-date:       2015-05-20
+date:       "2015-05-20"
 seotitle:   bar
 categories: [Web Development]
 ---

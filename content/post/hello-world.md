@@ -1,5 +1,5 @@
 title:      Hello World
-date:       2015-05-16
+date:       "2015-05-16"
 seotitle:   Hello World
 categories: [foo BAR baz]
 template:   post

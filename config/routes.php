@@ -43,8 +43,8 @@ $app->get('/{slug}', function($slug) use ($app) {
  * content in a subdirectory.
  *
  * Examples URIs:
- * /category/{term-slug}  (category archive)
- * /tag/{term-slug}       (tag archive)
+ * /categories/{term-slug}  (category archive)
+ * /tags/{term-slug}       (tag archive)
  * /our-team/jon-doe      (page in subdirectory)
  */
 $app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use ($app) {
