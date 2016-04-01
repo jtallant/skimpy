@@ -4,7 +4,7 @@
         {% block head %}
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <title>{% block title %}{{ seotitle }} - {{ app['site.tagline'] }}{% endblock title %}</title>
+            <title>{% block title %}{{ entry.seoTitle }} - {{ app['site.tagline'] }}{% endblock title %}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             {% if description is defined %}
                 <meta name="Description" content="{{ description }}">

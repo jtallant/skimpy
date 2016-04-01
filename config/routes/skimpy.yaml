@@ -1,0 +1,32 @@
+# home:
+#   path: /
+#   defaults: { _controller: 'Gonzalo123\AppController::homeAction' }
+#   requirements:
+#       bar: \d+
+#   methods: [GET]
+# For optional parameters in symfony routing, you need
+# to provide a default for the param value
+# defaults:
+#   foo: bar
+# Instead I will use {foo?}
+# and in the controller method param $foo = 'default-value-here';
+#
+# controller needs to be transformed
+# controller: 'Path\To\Controller@methodName'
+# becomes:
+# defaults: { _controller: 'Path\To\Controller::methodName'}
+#
+# I will still support the silex/symfony "defaults" syntax. So that means
+# I need to check for a defaults key and merge in the _controller param.
+#
+# By default silex matches on all route HTTP methods
+# I'll keep this behavior.
+home:
+    path: /
+    controller: Skimpy\Http\Controller\SkimpyController@home
+
+single:
+    path: /{slug}
+    controller: Skimpy\Http\Controller\SkimpyController@index
+    requirements:
+        slug: .+

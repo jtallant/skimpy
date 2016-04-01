@@ -1,17 +1,17 @@
-{% if item.hasTaxonomy('categories') or item.hasTaxonomy('tags') %}
+{% if entry.hasTaxonomy('categories') or entry.hasTaxonomy('tags') %}
     <div class="taxonomies">
-        {% if item.hasTaxonomy('categories') %}
+        {% if entry.hasTaxonomy('categories') %}
             <span class="categories">
                 Filed Under:
-                {% for cat in item.categories %}
+                {% for cat in entry.categories %}
                     <a href="/categories/{{ cat.slug }}">{{ cat.name }}</a>{{ loop.last ? '' : ',' }}
                 {% endfor %}
             </span> <!-- .categories -->
         {% endif %}
-        {% if item.hasTaxonomy('tags') %}
+        {% if entry.hasTaxonomy('tags') %}
             <span class="tags">
                 Tagged With:
-                {% for tag in item.tags %}
+                {% for tag in entry.tags %}
                     <a href="/tags/{{ tag.slug }}">{{ tag.name }}</a>{{ loop.last ? '' : ',' }}
                 {% endfor %}
             </span> <!-- .tags -->

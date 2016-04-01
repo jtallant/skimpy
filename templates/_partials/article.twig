@@ -1,0 +1,12 @@
+<article>
+    <header>
+        <h1><a href="/{{ entry.uri }}">{{ entry.title }}</a></h1>
+        <p>Published: <time pubdate="pubdate">{{ entry.date | date_default_format }}</time></p>
+    </header>
+    <div class="excerpt">
+        <p>{{ entry.excerpt }}&hellip;</p>
+    </div> <!-- .excerpt -->
+    <footer>
+        {% include '_partials/taxonomies.twig' %}
+    </footer>
+</article>

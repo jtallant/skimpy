@@ -36,3 +36,12 @@ build_key: null
 #
 # Default: true
 auto_rebuild: %env.AUTO_REBUILD%
+
+# TODO: Default to Swiftmailer Sendmail Transport
+mail.default_from_address: noreply@%env.DOMAIN
+mail.host: host
+mail.port: 25
+mail.username: username
+mail.password: password
+mail.encryption: null
+mail.auth_mode: null

@@ -1,0 +1,17 @@
+{#
+    List taxonomy terms
+#}
+{% extends '_layouts/master.twig' %}
+
+{% block title %}{{ taxonomy.name }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ taxonomy.name | title }}</h1>
+        <ul>
+            {% for term in taxonomy.terms %}
+                <li><a href="/{{ term.uri }}">{{ term.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </article>
+{% endblock content %}

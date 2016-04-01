@@ -1,0 +1,20 @@
+{#
+    Used for listing items of a post type.
+    A post type is technically just a directory that stores content files.
+    content/our-team/jon
+    content/our-team/jane
+#}
+{% extends '_layouts/master.twig' %}
+
+{% block title %}{{ index.seoTitle }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ index.title | title }}</h1>
+        <ul>
+            {% for entry in index.items %}
+                <li><a href="/{{ entry.uri }}">{{ entry.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </article>
+{% endblock content %}

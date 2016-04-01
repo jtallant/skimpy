@@ -1,9 +1,5 @@
-title:      Hello World
-date:       "2015-05-16"
-seotitle:   Hello World
-categories: [foo BAR baz]
-template:   post
----
+# products/widget.md
+
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

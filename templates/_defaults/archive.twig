@@ -1,0 +1,18 @@
+{#
+    Build an archive object and send it to the view.
+    All the entry variables are available as well
+    in case people want to customize seoTitle, etc.
+#}
+
+{% extends '_layouts/master.twig' %}
+
+{% block title %}{{ archive.title }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ archive.title | title }}</h1>
+        {% for entry in archive.entries %}
+            {% include '_partials/article.twig' %}
+        {% endfor %}
+    </article>
+{% endblock content %}
