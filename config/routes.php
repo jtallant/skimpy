@@ -9,11 +9,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 $app->get('/', function() use ($app) {
 
-    $posts = $app['skimpy']->findBy(['type' => 'post'], ['date' => 'DESC']);
+    $entries = $app['skimpy']->findBy(['type' => 'entry'], ['date' => 'DESC']);
 
     $data = [
         'seotitle' => 'Home',
-        'items'    => $posts
+        'entries'  => $entries
     ];
 
     return $app->render('home.twig', $data);
@@ -23,77 +23,48 @@ $app->get('/', function() use ($app) {
 /**
  * Render a page or post
  */
-$app->get('/{slug}', function($slug) use ($app) {
+$app->get('/{uri}', function($uri) use ($app) {
 
-    $contentItem = $app['skimpy.content']->findOneBy(['uri' => $slug]);
-
-    if (is_null($contentItem)) {
-        $app->abort(404);
-    }
-
-    return $app->render(
-        $contentItem->getTemplate().'.twig',
-        ['item' => $contentItem]
-    );
-})
-->bind('content');
-
-/**
- * Render category/tag archive or
- * content in a subdirectory.
- *
- * Examples URIs:
- * /categories/{term-slug}  (category archive)
- * /tags/{term-slug}       (tag archive)
- * /our-team/jon-doe      (page in subdirectory)
- */
-$app->get('/{taxonomySlug}/{termSlug}', function($taxonomySlug, $termSlug) use ($app) {
-
-    $uri = $taxonomySlug.'/'.$termSlug;
-    $page = $app['skimpy.content']->findOneBy(['uri' => $uri]);
-    if (false === is_null($page)) {
+    # Single
+    $entry = $app['skimpy.entries']->findOneBy(['uri' => $uri]);
+    if ($entry && false === $entry->isIndex()) {
         return $app->render(
-            $page->getTemplate().'.twig',
-            ['item' => $page]
+            '_defaults/entry.twig',
+            ['entry' => $entry]
         );
     }
 
-    $archive = $app['skimpy']->getArchive($taxonomySlug, $termSlug);
-    if (is_null($archive)) {
-        $app->abort(404);
+    # Index
+    if ($entry && $entry->isIndex()) {
+        $entries = $app['skimpy']->getIndexEntries($uri);
+        return $app->render(
+            '_defaults/index.twig',
+            ['entry' => $entry, 'entries' => $entries]
+        );
     }
 
-    return $app->render(
-        'archive.twig',
-        [
-            'archiveName' => $archive['term']->getName(),
-            'seotitle'    => $archive['term']->getName(),
-            'items'       => $archive['items'],
-        ]
-    );
-})
-->bind('archive');
-
-/**
- * Render content item two or more directories deep
- *
- * Examples URIs:
- * /our-team/volunteers/jane-doe (content/page/our-team/volunteers/jane-doe.md)
- * /our-team/volunteers/jon-doe  (content/page/our-team/volunteers/jon-doe.md)
- */
-$app->get('/{one}/{two}/{tree}', function($one, $two, $tree) use($app) {
-    $uri = $one.'/'.$two.'/'.$tree;
-    $page = $app['skimpy.content']->findOneBy(['uri' => $uri]);
-    if (false === is_null($page)) {
+    # Taxonomy (list of terms)
+    $taxonomy = $app['skimpy.taxonomies']->findOneBy(['uri' => $uri]);
+    if (false === is_null($taxonomy) && $taxonomy->hasPublicTermsRoute()) {
         return $app->render(
-            $page->getTemplate().'.twig',
-            ['item' => $page]
+            '_defaults/taxonomy.twig',
+            ['taxonomy' => $taxonomy]
+        );
+    }
+
+    # Term (list of entries with term)
+    $term = $app['skimpy.terms']->findOneBy(['uri' => $uri]);
+    if (false === is_null($term)) {
+        return $app->render(
+            '_defaults/term.twig',
+            ['term' => $term]
         );
     }
 
     $app->abort(404);
 })
-->assert('tree', '.+');
+->assert('uri', '.+')
+->bind('content');
 
 /**
  * Handle 404 errors
