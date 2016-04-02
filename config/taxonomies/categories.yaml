@@ -1,6 +1,6 @@
 # The slug is the name of the file w/o extension
-name: Category          # Used in HTML
-plural_name: Categories # Used in HTML
+name: Category             # Used in HTML
+plural_name: Categories    # Used in HTML
 terms:
   -
     name: Web Development
@@ -8,3 +8,6 @@ terms:
   -
     name: foo BAR baz
     slug: foo-bar-baz
+config:
+    # /categories is 404 if false
+    public_terms_route: true

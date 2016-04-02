@@ -8,3 +8,6 @@ terms:
   -
     name: Tag 2
     slug: tag-2
+config:
+    # /tags is 404 if false
+    public_terms_route: false
