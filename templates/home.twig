@@ -1,12 +1,14 @@
 {% extends '_layouts/master.twig' %}
 
+{% block title %}{{ app['site.title'] }} - {{ app['site.tagline'] }}{% endblock %}
+
 {% block header %}
     <h1 id="site-title"><a href="{{ url('home') }}">{{ app['site.title'] }}</a></h1>
     <p id="site-tagline">{{ app['site.tagline'] }}</p>
 {% endblock header %}
 
 {% block content %}
-    {% for item in items %}
+    {% for entry in entries %}
         {% include '_partials/article.twig' %}
     {% endfor %}
 {% endblock content %}

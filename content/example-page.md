@@ -1,6 +1,8 @@
 title:       Example Page
 date:        "2015-05-28"
 description: The meta description goes here for SEO purposes.
+foo: bar
+baz: qux
 ---
 This is an example of a page. There is no real difference between a page and
 a post. They both support taxonomies such as categories and tags. The distinction

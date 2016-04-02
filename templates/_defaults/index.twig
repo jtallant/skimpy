@@ -6,14 +6,13 @@
 #}
 {% extends '_layouts/master.twig' %}
 
-{% block title %}{{ index.seoTitle }}{% endblock %}
-
 {% block content %}
     <article>
-        <h1>{{ index.title | title }}</h1>
+        <h1>{{ entry.title }}</h1>
+        {{ entry.content | raw }}
         <ul>
-            {% for entry in index.items %}
-                <li><a href="/{{ entry.uri }}">{{ entry.title }}</a></li>
+            {% for item in entries %}
+                <li><a href="/{{ item.uri }}">{{ item.title }}</a></li>
             {% endfor %}
         </ul>
     </article>

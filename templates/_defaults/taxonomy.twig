@@ -7,7 +7,7 @@
 
 {% block content %}
     <article>
-        <h1>{{ taxonomy.name | title }}</h1>
+        <h1>{{ taxonomy.name }}</h1>
         <ul>
             {% for term in taxonomy.terms %}
                 <li><a href="/{{ term.uri }}">{{ term.name }}</a></li>

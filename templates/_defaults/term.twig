@@ -6,12 +6,12 @@
 
 {% extends '_layouts/master.twig' %}
 
-{% block title %}{{ archive.title }}{% endblock %}
+{% block title %}{{ term.name }}{% endblock %}
 
 {% block content %}
     <article>
-        <h1>{{ archive.title | title }}</h1>
-        {% for entry in archive.entries %}
+        <h1>{{ term.name }}</h1>
+        {% for entry in term.entries %}
             {% include '_partials/article.twig' %}
         {% endfor %}
     </article>

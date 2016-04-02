@@ -1,0 +1,13 @@
+# The slug is the name of the file w/o extension
+name: Color            # Used in HTML
+plural_name: Colors    # Used in HTML
+terms:
+  -
+    name: Blue
+    slug: blue
+  -
+    name: Red
+    slug: red
+config:
+    # /products/colors is 404 if false
+    public_terms_route: true
