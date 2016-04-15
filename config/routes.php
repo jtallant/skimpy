@@ -3,14 +3,14 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Skimpy\Http\Controller\SkimpyController;
+use Skimpy\Http\Controller\SkimpyGetController;
 
 $app['skimpy.renderer.twig'] = $app->share(function() use ($app) {
     return new \Skimpy\Http\Renderer\TwigRenderer($app['twig']);
 });
 
 $app['skimpy.controller'] = $app->share(function() use ($app) {
-    return new SkimpyController($app['skimpy.entries'], $app['skimpy.taxonomies'], $app['skimpy.renderer.twig']);
+    return new SkimpyGetController($app['skimpy.entries'], $app['skimpy.taxonomies'], $app['skimpy.renderer.twig']);
 });
 
 $app->get('/{uri}', 'skimpy.controller:handle')
