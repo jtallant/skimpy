@@ -3,17 +3,20 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Skimpy\Http\Controller\SkimpyGetController;
+use Skimpy\Http\Controller\GetController;
+use Skimpy\Http\Controller\PostController;
+use Skimpy\Http\Controller\PutController;
+use Skimpy\Http\Controller\DeleteController;
 
-$app['skimpy.renderer.twig'] = $app->share(function() use ($app) {
-    return new \Skimpy\Http\Renderer\TwigRenderer($app['twig']);
-});
+// $app['skimpy.renderer.twig'] = $app->share(function() use ($app) {
+//     return new \Skimpy\Http\Renderer\TwigRenderer($app['twig']);
+// });
 
-$app['skimpy.controller'] = $app->share(function() use ($app) {
-    return new SkimpyGetController($app['skimpy.entries'], $app['skimpy.taxonomies'], $app['skimpy.renderer.twig']);
-});
+// $app['skimpy.controller.get'] = $app->share(function() use ($app) {
+//     return new GetController($app['skimpy.entityResolver'], $app['skimpy.taxonomies'], $app['skimpy.renderer.twig']);
+// });
 
-$app->get('/{uri}', 'skimpy.controller:handle')
+$app->get('/{uri}', 'skimpy.controller.get:handle')
     ->assert('uri', '.+')
     ->bind('content')
 ;
