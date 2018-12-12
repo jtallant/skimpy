@@ -1,7 +1,16 @@
 {#
     List taxonomy terms
+    -------------------------------
+
+    Example:
+    -------------------------------
+    <h1>Categories</h1>
+    <ul>
+        <li><a href="/categories/web-development">Web Development</a>
+        <li><a href="/categories/unix">Unix</a>
+    </ul>
 #}
-{% extends '_layouts/master.twig' %}
+{% extends 'layouts/master.twig' %}
 
 {% block title %}{{ taxonomy.name }}{% endblock %}
 

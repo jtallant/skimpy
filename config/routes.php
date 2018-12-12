@@ -8,19 +8,6 @@ use Skimpy\Http\Controller\PostController;
 use Skimpy\Http\Controller\PutController;
 use Skimpy\Http\Controller\DeleteController;
 
-// $app['skimpy.renderer.twig'] = $app->share(function() use ($app) {
-//     return new \Skimpy\Http\Renderer\TwigRenderer($app['twig']);
-// });
-
-// $app['skimpy.controller.get'] = $app->share(function() use ($app) {
-//     return new GetController($app['skimpy.entityResolver'], $app['skimpy.taxonomies'], $app['skimpy.renderer.twig']);
-// });
-
-$app->get('/{uri}', 'skimpy.controller.get:handle')
-    ->assert('uri', '.+')
-    ->bind('content')
-;
-
 /**
  * Home page
  */
@@ -37,51 +24,10 @@ $app->get('/', function() use ($app) {
 })
 ->bind('home');
 
-/**
- * Render a page or post
- */
-// $app->get('/{uri}', function($uri) use ($app) {
-
-//     # Single
-//     $entry = $app['skimpy.entries']->findOneBy(['uri' => $uri]);
-//     if ($entry && false === $entry->isIndex()) {
-//         return $app->render(
-//             '_defaults/entry.twig',
-//             ['entry' => $entry]
-//         );
-//     }
-
-//     # Index
-//     if ($entry && $entry->isIndex()) {
-//         $entries = $app['skimpy']->getIndexEntries($uri);
-//         return $app->render(
-//             '_defaults/index.twig',
-//             ['entry' => $entry, 'entries' => $entries]
-//         );
-//     }
-
-//     # Taxonomy (list of terms)
-//     $taxonomy = $app['skimpy.taxonomies']->findOneBy(['uri' => $uri]);
-//     if (false === is_null($taxonomy) && $taxonomy->hasPublicTermsRoute()) {
-//         return $app->render(
-//             '_defaults/taxonomy.twig',
-//             ['taxonomy' => $taxonomy]
-//         );
-//     }
-
-//     # Term (list of entries with term)
-//     $term = $app['skimpy.terms']->findOneBy(['uri' => $uri]);
-//     if (false === is_null($term)) {
-//         return $app->render(
-//             '_defaults/term.twig',
-//             ['term' => $term]
-//         );
-//     }
-
-//     $app->abort(404);
-// })
-// ->assert('uri', '.+')
-// ->bind('content');
+$app->get('/{uri}', 'skimpy.controller.get:handle')
+    ->assert('uri', '.+')
+    ->bind('content')
+;
 
 /**
  * Handle 404 errors

@@ -1,0 +1,12 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <header>
+        <h1>{{ entry.title }}</h1>
+        <p>Published: <time pubdate="pubdate">{{ entry.date | date_default_format }}</time></p>
+    </header>
+    {{ entry.content | raw }}
+    <footer>
+        {% include 'partials/taxonomies.twig' %}
+    </footer>
+{% endblock content %}
